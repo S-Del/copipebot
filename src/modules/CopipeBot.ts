@@ -1,4 +1,5 @@
 import { Client, Message } from 'discord.js';
+import { EmojiString } from './emoji_string/EmojiString';
 
 export class CopipeBot {
   private static instance:CopipeBot;
@@ -29,6 +30,15 @@ export class CopipeBot {
       const channel = message.channel;
       const messageList = message.content.split(' ');
       const command = messageList[1];
+
+      if (command.match(/^emoji$/)) {
+        const rawMessage = messageList.slice(2).join(' ');
+        const emojiStr = new EmojiString();
+        const response = emojiStr.response(rawMessage);
+        channel.send(response);
+        message.delete();
+        return;
+      }
 
       channel.send('コマンドが分かりませんでした');
       return;
