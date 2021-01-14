@@ -33,9 +33,8 @@ export class CopipeBot {
       const command = messageList[1];
 
       if (command.match(/^emoji$/)) {
-        const rawMessage = messageList.slice(2).join(' ');
-        const emojiStr = new EmojiString();
-        const response = emojiStr.response(rawMessage);
+        const emoji = new EmojiString(messageList.slice(2).join(' '));
+        const response = emoji.response();
         channel.send(response);
         message.delete();
         return;

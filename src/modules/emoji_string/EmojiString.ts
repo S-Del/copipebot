@@ -1,24 +1,28 @@
 export class EmojiString {
   private readonly PREFIX:string;
-  private errorList:string[];
+  private readonly rowMessage:string;
+  private readonly errorMessageList:string[];
 
-  constructor() {
+  constructor(message:string) {
     this.PREFIX = ':regional_indicator_';
-    this.errorList = [];
+    this.rowMessage = message;
+
+    this.errorMessageList = [];
+    this.validate();
   }
 
-  private readonly validate = (message:string):void => {
-    if (message.length < 1) {
-      this.errorList.push('変換する文字列がないよ');
+  private readonly validate = ():void => {
+    if (this.rowMessage.length < 1) {
+      this.errorMessageList.push('変換する文字列がないよ');
     }
-    if (message.match(/[^a-zA-Z0-9\s!\?]/g)) {
-      this.errorList.push('絵文字にできない文字が含まれていたよ');
+    if (this.rowMessage.match(/[^a-zA-Z0-9\s!\?]/g)) {
+      this.errorMessageList.push('絵文字にできない文字が含まれていたよ');
     }
   };
 
-  private readonly create = (message:string):string => {
+  private readonly create = ():string => {
     const emojiList = [];
-    for (const c of message) {
+    for (const c of this.rowMessage) {
       if (c.match(/[a-z]/)) {
         emojiList.push(`${this.PREFIX}${c}:`);
       } else if (c.match(/[A-Z]/)) {
@@ -39,12 +43,11 @@ export class EmojiString {
     return emojiList.join(' ');
   };
 
-  readonly response = (message:string):string => {
-    this.validate(message);
-    if (this.errorList.length > 0) {
-      return this.errorList.join('\n');
+  readonly response = ():string => {
+    if (this.errorMessageList.length > 0) {
+      return this.errorMessageList.join('\n');
     }
 
-    return this.create(message);
+    return this.create();
   };
 }
