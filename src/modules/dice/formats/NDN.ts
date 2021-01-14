@@ -15,11 +15,11 @@ export class NDN {
 
   private readonly validate = () => {
     if (!this.count) {
-      this.errorMessageList.push('ダイスを振る回数に数字が指定されていなかったよ');
+      this.errorMessageList.push('ダイスを振る回数が 0 か数字以外の文字だったよ');
     }
 
     if (!this.maxValue) {
-      this.errorMessageList.push('ダイスの面数に数字が指定されていなかったよ');
+      this.errorMessageList.push('ダイスの面数が 0 か数字以外の文字だったよ');
     }
 
     if (this.count > 100) {
@@ -41,11 +41,12 @@ export class NDN {
 
   private readonly roll = ():string => {
     if (this.count == 1) {
-      return `出た目: ${randomInt(1, this.maxValue)}`;
+      return `出た目: ${randomInt(1, this.maxValue + 1)}`;
     }
 
     const result = new Array<number>(this.count)
-                   .fill(randomInt(1, this.maxValue));
+                   .fill(NaN)
+                   .map(() => randomInt(1, this.maxValue + 1));
     const total = sum(result);
     const minValue = min(result);
     const maxValue = max(result);
@@ -60,25 +61,25 @@ export class NDN {
       return [
         '出た目:',
         `\`\`\`${result.join(', ')}\`\`\``,
-        '結果: () 内は 100 を 0 とした場合の値',
-        `合計: ${total} (${sum(result2)})`,
-        `最小: ${minValue} (${min(result2)})`,
-        `最大: ${maxValue} (${max(result2)})`,
-        `中央: ${centerValue} (${median(result2)})`,
-        `最頻: ${modeValues.join(', ')} (${mode(result2).join(', ')})`,
-        `平均: ${average} (${mean(result2)})`
+        `合 計: ${total} (${sum(result2)})`,
+        `最 小: ${minValue} (${min(result2)})`,
+        `最 大: ${maxValue} (${max(result2)})`,
+        `中 央: ${centerValue} (${median(result2)})`,
+        `最 頻: ${modeValues.join(', ')} (${mode(result2).join(', ')})`,
+        `平 均: ${average} (${mean(result2)})`,
+        '`()` 内は 100 を 0 とした場合の値'
       ].join('\n');
     }
 
     return [
       '出た目:',
       `\`\`\`${result.join(', ')}\`\`\``,
-      `合計: ${total}`,
-      `最小: ${minValue}`,
-      `最大: ${maxValue}`,
-      `中央: ${centerValue}`,
-      `最頻: ${modeValues.join(', ')}`,
-      `平均: ${average}`
+      `合 計: ${total}`,
+      `最 小: ${minValue}`,
+      `最 大: ${maxValue}`,
+      `中 央: ${centerValue}`,
+      `最 頻: ${modeValues.join(', ')}`,
+      `平 均: ${average}`
     ].join('\n');
   }
 
