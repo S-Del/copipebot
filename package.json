@@ -2,20 +2,30 @@
   "name": "copipebot",
   "version": "1.0.0",
   "description": "Discord CopipeBot",
-  "main": "main.js",
+  "main": "build/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc -p ./src/tsconfig.json",
+    "watch": "tsc -p ./src/tsconfig.json --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.com:S-Del_discordbot/copipebot/typescript.git"
   },
   "keywords": [
-    "discord",
-    "bot"
+    "Discord",
+    "Bot",
+    "Type Script",
+    "Node.js",
+    "discord.js"
   ],
   "author": "S-Del",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^12.5.1"
+    "discord.js": "^12.5.1",
+    "mathjs": "^8.1.1"
   },
   "devDependencies": {
-    "@types/node": "^14.14.20"
+    "@types/mathjs": "^6.0.11",
+    "@types/node": "^10.17.50"
   }
 }
