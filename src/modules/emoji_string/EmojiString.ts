@@ -1,14 +1,9 @@
 export class EmojiString {
   private readonly PREFIX:string;
-  private readonly EMOJINUMBER_LIST:readonly EmojiNumber[];
   private errorList:string[];
 
   constructor() {
     this.PREFIX = ':regional_indicator_';
-    this.EMOJINUMBER_LIST = [
-      ':zero:', ':one:', ':two:', ':three:', ':four:',
-      ':five:', ':six:', ':seven:', ':eight:', ':nine:'
-    ];
     this.errorList = [];
   }
 
@@ -29,7 +24,7 @@ export class EmojiString {
       } else if (c.match(/[A-Z]/)) {
         emojiList.push(`${this.PREFIX}${c.toLowerCase()}:`);
       } else if (c.match(/[0-9]/)) {
-        emojiList.push(`${this.EMOJINUMBER_LIST[Number(c)]}`);
+        emojiList.push(`${NUMBER_EMOJI_LIST[Number(c)]}`);
       } else if (c.match(/\s/)) {
         emojiList.push(`      `);
       } else if (c.match(/!/)) {
