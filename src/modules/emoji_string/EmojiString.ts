@@ -1,3 +1,5 @@
+import { NUMBER_EMOJI_LIST } from "../common/common";
+
 export class EmojiString {
   private readonly PREFIX:string;
   private readonly rowMessage:string;
