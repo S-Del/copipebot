@@ -30,7 +30,7 @@ export class CopipeBot {
       if (!message.content.match(/^(cb |copipebot )/)) { return; }
 
       const channel = message.channel;
-      const messageList = message.content.split(' ');
+      const messageList = message.content.split(/\s/);
       const command = messageList[1];
 
       if (command.match(/^emoji$/)) {
