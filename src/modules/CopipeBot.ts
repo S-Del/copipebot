@@ -1,6 +1,7 @@
 import { Client, Message } from 'discord.js';
 import { EmojiString } from './emoji_string/EmojiString';
 import { Dice } from './dice/Dice';
+import { Survey } from './survey/Survey';
 
 export class CopipeBot {
   private static instance:CopipeBot;
@@ -44,6 +45,16 @@ export class CopipeBot {
         const dice = new Dice(messageList[2]);
         const response = dice.response();
         channel.send(response);
+        return;
+      }
+
+      if (command.match(/^survey$/)) {
+        const survey = new Survey(messageList.slice(2));
+        const response = survey.response();
+        channel.send(response).then(sent => {
+          survey.react(sent);
+        });
+        message.delete();
         return;
       }
 
