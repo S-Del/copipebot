@@ -41,7 +41,6 @@ export class CopipeBot {
     this.client.on('message', (message:Message) => {
       if (message.author.bot) { return; }
 
-      const channel = message.channel;
       const messageList = message.content.split(/\s/);
       if (messageList.length < 2) { return; }
 
@@ -53,7 +52,7 @@ export class CopipeBot {
       if (command.match(/^emoji$/)) {
         const emoji = new EmojiString(messageList.slice(2).join(' '));
         const response = emoji.response();
-        channel.send(response);
+        message.channel.send(response);
         message.delete();
         return;
       }
@@ -61,21 +60,21 @@ export class CopipeBot {
       if (command.match(/^dice$/)) {
         const dice = new Dice(messageList[2]);
         const response = dice.response();
-        channel.send(response);
+        message.channel.send(response);
         return;
       }
 
       if (command.match(/^survey$/)) {
         const survey = new Survey(messageList.slice(2));
         const response = survey.response();
-        channel.send(response).then(sent => {
+        message.channel.send(response).then(sent => {
           survey.react(sent);
         });
         message.delete();
         return;
       }
 
-      channel.send('コマンドが分かりませんでした');
+      message.channel.send('コマンドが分かりませんでした');
       return;
     });
   };
