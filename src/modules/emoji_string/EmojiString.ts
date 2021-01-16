@@ -6,7 +6,7 @@ export class EmojiString {
   private readonly errorMessageList:string[];
 
   constructor(message:string) {
-    this.PREFIX = ':regional_indicator_';
+    this.PREFIX = 'regional_indicator';
     this.rowMessage = message;
 
     this.errorMessageList = [];
