@@ -23,24 +23,23 @@ export class EmojiString {
   };
 
   private readonly create = ():string => {
-    const emojiList = [];
-    for (const c of this.rowMessage) {
+    const emojiList = Array.from(this.rowMessage, c => {
       if (c.match(/[a-z]/)) {
-        emojiList.push(`${this.PREFIX}${c}:`);
+        return `:${this.PREFIX}_${c}:`;
       } else if (c.match(/[A-Z]/)) {
-        emojiList.push(`${this.PREFIX}${c.toLowerCase()}:`);
+        return `:${this.PREFIX}_${c.toLowerCase()}:`;
       } else if (c.match(/[0-9]/)) {
-        emojiList.push(`${NUMBER_EMOJI_LIST[Number(c)]}`);
+        return `${NUMBER_EMOJI_LIST[Number(c)]}`;
       } else if (c.match(/\s/)) {
-        emojiList.push(`      `);
+        return '      ';
       } else if (c.match(/!/)) {
-        emojiList.push(':grey_exclamation:');
+        return ':grey_exclamation:';
       } else if (c.match(/\?/)) {
-        emojiList.push(':grey_question:');
+        return ':grey_question:';
       } else {
-        continue;
+        return;
       }
-    }
+    });
 
     return emojiList.join(' ');
   };
