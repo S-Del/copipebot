@@ -17,6 +17,11 @@ export class EmojiString {
     if (this.rowMessage.length < 1) {
       this.errorMessageList.push('変換する文字列がないよ');
     }
+
+    if (this.rowMessage.length > 80) {
+      this.errorMessageList.push('変換する文字列が長すぎるよ');
+    }
+
     if (this.rowMessage.match(/[^a-zA-Z0-9\s!\?]/g)) {
       this.errorMessageList.push('絵文字にできない文字が含まれていたよ');
     }
