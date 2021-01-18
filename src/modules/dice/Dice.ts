@@ -18,6 +18,16 @@ export class Dice {
       return;
     }
 
+    if (this.rowMessage.length < 2) {
+      this.errorMessageList.push('ダイスにする文字列が短すぎたよ');
+      return;
+    }
+
+    if (this.rowMessage.length > 7) {
+      this.errorMessageList.push('ダイスにする文字列が長すぎたよ');
+      return;
+    }
+
     if (this.rowMessage.match(/[^0-9dD]/)) {
       this.errorMessageList.push('ダイスにできない文字が含まれていたよ');
       return;
