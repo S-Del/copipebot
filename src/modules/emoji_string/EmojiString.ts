@@ -14,16 +14,24 @@ export class EmojiString {
   }
 
   private readonly validate = ():void => {
+    if (!this.rowMessage) {
+      this.errorMessageList.push('変換できる文字列が無かったよ')
+      return;
+    }
+
     if (this.rowMessage.length < 1) {
-      this.errorMessageList.push('変換する文字列がないよ');
+      this.errorMessageList.push('変換する文字列が短すぎるよ');
+      return;
     }
 
     if (this.rowMessage.length > 80) {
       this.errorMessageList.push('変換する文字列が長すぎるよ');
+      return;
     }
 
     if (this.rowMessage.match(/[^a-zA-Z0-9\s!\?]/g)) {
       this.errorMessageList.push('絵文字にできない文字が含まれていたよ');
+      return;
     }
   };
 
