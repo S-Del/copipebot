@@ -6,7 +6,7 @@ export class EmojiString {
   private readonly errorMessageList:string[];
 
   constructor(message:string) {
-    this.PREFIX = ':regional_indicator_';
+    this.PREFIX = 'regional_indicator';
     this.rowMessage = message;
 
     this.errorMessageList = [];
@@ -14,33 +14,45 @@ export class EmojiString {
   }
 
   private readonly validate = ():void => {
-    if (this.rowMessage.length < 1) {
-      this.errorMessageList.push('変換する文字列がないよ');
+    if (!this.rowMessage) {
+      this.errorMessageList.push('変換できる文字列が無かったよ')
+      return;
     }
+
+    if (this.rowMessage.length < 1) {
+      this.errorMessageList.push('変換する文字列が短すぎるよ');
+      return;
+    }
+
+    if (this.rowMessage.length > 80) {
+      this.errorMessageList.push('変換する文字列が長すぎるよ');
+      return;
+    }
+
     if (this.rowMessage.match(/[^a-zA-Z0-9\s!\?]/g)) {
       this.errorMessageList.push('絵文字にできない文字が含まれていたよ');
+      return;
     }
   };
 
   private readonly create = ():string => {
-    const emojiList = [];
-    for (const c of this.rowMessage) {
+    const emojiList = Array.from(this.rowMessage, c => {
       if (c.match(/[a-z]/)) {
-        emojiList.push(`${this.PREFIX}${c}:`);
+        return `:${this.PREFIX}_${c}:`;
       } else if (c.match(/[A-Z]/)) {
-        emojiList.push(`${this.PREFIX}${c.toLowerCase()}:`);
+        return `:${this.PREFIX}_${c.toLowerCase()}:`;
       } else if (c.match(/[0-9]/)) {
-        emojiList.push(`${NUMBER_EMOJI_LIST[Number(c)]}`);
+        return `${NUMBER_EMOJI_LIST[Number(c)]}`;
       } else if (c.match(/\s/)) {
-        emojiList.push(`      `);
+        return '      ';
       } else if (c.match(/!/)) {
-        emojiList.push(':grey_exclamation:');
+        return ':grey_exclamation:';
       } else if (c.match(/\?/)) {
-        emojiList.push(':grey_question:');
+        return ':grey_question:';
       } else {
-        continue;
+        return;
       }
-    }
+    });
 
     return emojiList.join(' ');
   };

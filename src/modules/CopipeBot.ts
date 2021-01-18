@@ -1,4 +1,6 @@
 import { Client, Message } from 'discord.js';
+import { CommandValidator } from './CommandValidator';
+import { SubCommandValidator } from './SubCommandValidator';
 import { EmojiString } from './emoji_string/EmojiString';
 import { Dice } from './dice/Dice';
 import { Survey } from './survey/Survey';
@@ -7,11 +9,15 @@ export class CopipeBot {
   private static instance:CopipeBot;
   private readonly TOKEN:string;
   private readonly client:Client;
+  private readonly commandValidator:CommandValidator;
+  private readonly subCommandValidator:SubCommandValidator;
   private isRunning:boolean;
 
   private constructor(token:string) {
     this.TOKEN = token;
     this.client = new Client();
+    this.commandValidator = new CommandValidator();
+    this.subCommandValidator = new SubCommandValidator();
     this.isRunning = false;
     this.defineEvents();
   }
@@ -27,38 +33,41 @@ export class CopipeBot {
   private readonly defineEvents = ():void => {
     this.client.on('message', (message:Message) => {
       if (message.author.bot) { return; }
-      if (!message.content.match(/^(cb |copipebot )/)) { return; }
 
-      const channel = message.channel;
       const messageList = message.content.split(/\s/);
-      const command = messageList[1];
+      if (messageList.length < 2) { return; }
 
-      if (command.match(/^emoji$/)) {
+      if (!this.commandValidator.isValid(messageList[0])) { return; }
+
+      const subCommand = messageList[1];
+      if (!this.subCommandValidator.isValid(subCommand)) { return; };
+
+      if (subCommand.match(/^emoji$/)) {
         const emoji = new EmojiString(messageList.slice(2).join(' '));
         const response = emoji.response();
-        channel.send(response);
+        message.channel.send(response);
         message.delete();
         return;
       }
 
-      if (command.match(/^dice$/)) {
+      if (subCommand.match(/^dice$/)) {
         const dice = new Dice(messageList[2]);
         const response = dice.response();
-        channel.send(response);
+        message.channel.send(response);
         return;
       }
 
-      if (command.match(/^survey$/)) {
+      if (subCommand.match(/^survey$/)) {
         const survey = new Survey(messageList.slice(2));
         const response = survey.response();
-        channel.send(response).then(sent => {
+        message.channel.send(response).then(sent => {
           survey.react(sent);
         });
         message.delete();
         return;
       }
 
-      channel.send('コマンドが分かりませんでした');
+      message.channel.send('コマンドが分かりませんでした');
       return;
     });
   };
