@@ -1,16 +1,18 @@
+import { SUB_COMMAND_NAME_LIST } from "./common/common";
+
 export class SubCommandValidator {
-  private readonly NAME_LIST:readonly SubCommand[];
 //private readonly REGEXP_LIST:readonly RegExp[];
   private readonly NAME_MAX_LEN:number;
   private readonly NAME_MIN_LEN:number;
 
   constructor () {
-    this.NAME_LIST = ['emoji', 'dice', 'survey'];
 //  this.REGEXP_LIST = [/^(emoji|-e)$/, /^(dice|-d)$/, /^(survey|-s)$/];
-    this.NAME_MAX_LEN = this.NAME_LIST.map(x => x.length)
-                                      .reduce((acc, cur) => acc>cur ? acc:cur);
-    this.NAME_MIN_LEN = this.NAME_LIST.map(x => x.length)
-                                      .reduce((acc, cur) => acc<cur ? acc:cur);
+    this.NAME_MAX_LEN =
+        SUB_COMMAND_NAME_LIST.map(x => x.length)
+                             .reduce((acc, cur) => Math.max(acc, cur));
+    this.NAME_MIN_LEN =
+        SUB_COMMAND_NAME_LIST.map(x => x.length)
+                             .reduce((acc, cur) => Math.min(acc, cur));
   }
 
   readonly isValid = (str:string):boolean => {
