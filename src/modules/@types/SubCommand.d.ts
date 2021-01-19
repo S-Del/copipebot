@@ -1,1 +1,1 @@
-declare type SubCommand = 'emoji' | 'dice' | 'survey';
+declare type SubCommand = 'emoji' | 'dice' | 'survey' | 'help';

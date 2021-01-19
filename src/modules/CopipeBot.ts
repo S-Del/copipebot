@@ -4,6 +4,7 @@ import { SubCommandValidator } from './SubCommandValidator';
 import { EmojiString } from './emoji_string/EmojiString';
 import { Dice } from './dice/Dice';
 import { Survey } from './survey/Survey';
+import { SUB_COMMAND_NAME_LIST } from './common/common';
 
 export class CopipeBot {
   private static instance:CopipeBot;
@@ -64,6 +65,18 @@ export class CopipeBot {
           survey.react(sent);
         });
         message.delete();
+        return;
+      }
+
+      if (subCommand.match(/^help$/)) {
+        message.channel.send([
+          'こぴぺボットでは以下のコマンドが利用できます',
+          '```',
+          SUB_COMMAND_NAME_LIST.join('\n'),
+          '```',
+          '詳細は以下のページをご覧ください',
+          'https://gitlab.com/S-Del_discordbot/copipebot/-/blob/main/README.md'
+        ].join('\n'));
         return;
       }
 
