@@ -71,7 +71,9 @@ export class CopipeBot {
       if (subCommand.match(/^help$/)) {
         message.channel.send([
           'こぴぺボットでは以下のコマンドが利用できます',
-          `\`\`\`${SUB_COMMAND_NAME_LIST.join('\n')}\`\`\``,
+          '```',
+          SUB_COMMAND_NAME_LIST.join('\n'),
+          '```',
           '詳細は以下のページをご覧ください',
           'https://gitlab.com/S-Del_discordbot/copipebot/-/blob/main/README.md'
         ].join('\n'));
