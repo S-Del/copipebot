@@ -18,7 +18,7 @@ export class SubCommandValidator {
   readonly isValid = (str:string):boolean => {
     if (str.length < this.NAME_MIN_LEN) { return false; }
     if (str.length > this.NAME_MAX_LEN) { return false; }
-//  if (!this.REGEXP_LIST.some(pattern => str.match(pattern))) { return false };
+//  if (!this.REGEXP_LIST.some(pattern => pattern.test(str))) { return false };
     return true;
   }
 }

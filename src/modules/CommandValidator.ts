@@ -5,16 +5,18 @@ export class CommandValidator {
 
   constructor() {
     this.NAME_LIST = ['cb', 'copipebot'];
-    this.NAME_MAX_LEN = this.NAME_LIST.map(x => x.length)
-                                      .reduce((acc, cur) => acc>cur ? acc:cur);
-    this.NAME_MIN_LEN = this.NAME_LIST.map(x => x.length)
-                                      .reduce((acc, cur) => acc<cur ? acc:cur);
+    this.NAME_MAX_LEN = this.NAME_LIST
+                        .map(x => x.length)
+                        .reduce((acc, cur) => Math.max(acc, cur));
+    this.NAME_MIN_LEN = this.NAME_LIST
+                        .map(x => x.length)
+                        .reduce((acc, cur) => Math.min(acc, cur));
   }
 
   readonly isValid = (str:string):boolean => {
     if (str.length < this.NAME_MIN_LEN) { return false; }
     if (str.length > this.NAME_MAX_LEN) { return false; }
-    if (!str.match(/^(cb|copipebot)$/)) { return false; }
+    if (!/^(cb|copipebot)$/.test(str)) { return false; }
     return true;
   }
 }
