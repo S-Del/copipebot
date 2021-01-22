@@ -47,7 +47,6 @@ export class CopipeBot {
         const emoji = new EmojiString(messageList.slice(2).join(' '));
         const response = emoji.response();
         message.channel.send(response);
-        message.delete();
         return;
       }
 
