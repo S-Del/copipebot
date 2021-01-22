@@ -43,7 +43,7 @@ export class CopipeBot {
       const subCommand = messageList[1];
       if (!this.subCommandValidator.isValid(subCommand)) { return; };
 
-      if (subCommand.match(/^emoji$/)) {
+      if (/^emoji$/.test(subCommand)) {
         const emoji = new EmojiString(messageList.slice(2).join(' '));
         const response = emoji.response();
         message.channel.send(response);
@@ -51,14 +51,14 @@ export class CopipeBot {
         return;
       }
 
-      if (subCommand.match(/^dice$/)) {
+      if (/^dice$/.test(subCommand)) {
         const dice = new Dice(messageList[2]);
         const response = dice.response();
         message.channel.send(response);
         return;
       }
 
-      if (subCommand.match(/^survey$/)) {
+      if (/^survey$/.test(subCommand)) {
         const survey = new Survey(messageList.slice(2));
         const response = survey.response();
         message.channel.send(response).then(sent => {
@@ -68,7 +68,7 @@ export class CopipeBot {
         return;
       }
 
-      if (subCommand.match(/^help$/)) {
+      if (/^help$/.test(subCommand)) {
         message.channel.send([
           'こぴぺボットでは以下のコマンドが利用できます',
           '```',

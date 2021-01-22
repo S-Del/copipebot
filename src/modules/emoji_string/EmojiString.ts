@@ -29,7 +29,7 @@ export class EmojiString {
       return;
     }
 
-    if (this.rowMessage.match(/[^a-zA-Z0-9\s!\?]/g)) {
+    if (/[^a-zA-Z0-9\s!\?]/g.test(this.rowMessage)) {
       this.errorMessageList.push('絵文字にできない文字が含まれていたよ');
       return;
     }
@@ -37,17 +37,17 @@ export class EmojiString {
 
   private readonly create = ():string => {
     const emojiList = Array.from(this.rowMessage, c => {
-      if (c.match(/[a-z]/)) {
+      if (/[a-z]/.test(c)) {
         return `:${this.PREFIX}_${c}:`;
-      } else if (c.match(/[A-Z]/)) {
+      } else if (/[A-Z]/.test(c)) {
         return `:${this.PREFIX}_${c.toLowerCase()}:`;
-      } else if (c.match(/[0-9]/)) {
+      } else if (/[0-9]/.test(c)) {
         return `${NUMBER_EMOJI_LIST[Number(c)]}`;
-      } else if (c.match(/\s/)) {
+      } else if (/\s/.test(c)) {
         return '      ';
-      } else if (c.match(/!/)) {
+      } else if (/!/.test(c)) {
         return ':grey_exclamation:';
-      } else if (c.match(/\?/)) {
+      } else if (/\?/.test(c)) {
         return ':grey_question:';
       } else {
         return;

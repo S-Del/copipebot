@@ -28,7 +28,7 @@ export class Dice {
       return;
     }
 
-    if (this.rowMessage.match(/[^0-9dD]/)) {
+    if (/[^0-9dD]/.test(this.rowMessage)) {
       this.errorMessageList.push('ダイスにできない文字が含まれていたよ');
       return;
     }
