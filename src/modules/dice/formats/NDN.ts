@@ -16,10 +16,12 @@ export class NDN {
   private readonly validate = () => {
     if (!this.count) {
       this.errorMessageList.push('ダイスを振る回数が 0 か数字以外の文字だったよ');
+      return;
     }
 
     if (!this.maxValue) {
       this.errorMessageList.push('ダイスの面数が 0 か数字以外の文字だったよ');
+      return;
     }
 
     if (this.count > 100) {
