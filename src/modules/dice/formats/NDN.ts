@@ -69,6 +69,11 @@ export class NDN {
         `中 央: ${centerValue} (${median(result2)})`,
         `平 均: ${average} (${mean(result2)})`,
           mode(result2).sort((a:number, b:number) => a - b)
+        `合 計: **${total}** (${sum(result2)})`,
+        `最 小: **${minValue}** (${min(result2)})`,
+        `最 大: **${maxValue}** (${max(result2)})`,
+        `中 央: **${centerValue}** (${median(result2)})`,
+        `平 均: **${average}** (${mean(result2)})`,
         '`()` 内は 100 を 0 とした場合の値'
       ].join('\n');
     }
@@ -82,6 +87,11 @@ export class NDN {
       `中 央: ${centerValue}`,
       `最 頻: ${modeValues.join(', ')}`,
       `平 均: ${average}`
+      `合 計: **${total}**`,
+      `最 小: **${minValue}**`,
+      `最 大: **${maxValue}**`,
+      `中 央: **${centerValue}**`,
+      `平 均: **${average}**`
     ].join('\n');
   }
 
