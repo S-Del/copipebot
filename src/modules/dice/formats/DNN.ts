@@ -61,7 +61,7 @@ export class DNN {
 
     return [
       `${NUMBER_EMOJI_LIST[result1]} ${NUMBER_EMOJI_LIST[result2]}`,
-      `結果: ${result3}`
+      `結果: **${result3}**`
     ].join('\n');
   }
 
