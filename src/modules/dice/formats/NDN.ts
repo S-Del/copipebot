@@ -16,10 +16,12 @@ export class NDN {
   private readonly validate = () => {
     if (!this.count) {
       this.errorMessageList.push('ダイスを振る回数が 0 か数字以外の文字だったよ');
+      return;
     }
 
     if (!this.maxValue) {
       this.errorMessageList.push('ダイスの面数が 0 か数字以外の文字だったよ');
+      return;
     }
 
     if (this.count > 100) {
@@ -51,7 +53,7 @@ export class NDN {
     const minValue = min(result);
     const maxValue = max(result);
     const centerValue = median(result);
-    const modeValues = mode(result);
+    const modeValues = mode(result).sort((a:number, b:number) => a - b);
     const average = mean(result);
 
     // 100 の目を 0 とする場合の処理
@@ -60,26 +62,33 @@ export class NDN {
 
       return [
         '出た目:',
-        `\`\`\`${result.join(', ')}\`\`\``,
-        `合 計: ${total} (${sum(result2)})`,
-        `最 小: ${minValue} (${min(result2)})`,
-        `最 大: ${maxValue} (${max(result2)})`,
-        `中 央: ${centerValue} (${median(result2)})`,
-        `最 頻: ${modeValues.join(', ')} (${mode(result2).join(', ')})`,
-        `平 均: ${average} (${mean(result2)})`,
+        '\`\`\`',
+        result.join(', '),
+        '\`\`\`',
+        `最 頻: [${modeValues.join(', ')}] (${
+          mode(result2).sort((a:number, b:number) => a - b)
+                       .join(', ')
+        })`,
+        `合 計: **${total}** (${sum(result2)})`,
+        `最 小: **${minValue}** (${min(result2)})`,
+        `最 大: **${maxValue}** (${max(result2)})`,
+        `中 央: **${centerValue}** (${median(result2)})`,
+        `平 均: **${average}** (${mean(result2)})`,
         '`()` 内は 100 を 0 とした場合の値'
       ].join('\n');
     }
 
     return [
       '出た目:',
-      `\`\`\`${result.join(', ')}\`\`\``,
-      `合 計: ${total}`,
-      `最 小: ${minValue}`,
-      `最 大: ${maxValue}`,
-      `中 央: ${centerValue}`,
-      `最 頻: ${modeValues.join(', ')}`,
-      `平 均: ${average}`
+      '\`\`\`',
+      result.join(', '),
+      '\`\`\`',
+      `最 頻: [${modeValues.join(', ')}]`,
+      `合 計: **${total}**`,
+      `最 小: **${minValue}**`,
+      `最 大: **${maxValue}**`,
+      `中 央: **${centerValue}**`,
+      `平 均: **${average}**`
     ].join('\n');
   }
 
