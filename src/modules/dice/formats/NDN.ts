@@ -53,7 +53,7 @@ export class NDN {
     const minValue = min(result);
     const maxValue = max(result);
     const centerValue = median(result);
-    const modeValues = mode(result);
+    const modeValues = mode(result).sort((a:number, b:number) => a - b);
     const average = mean(result);
 
     // 100 の目を 0 とする場合の処理
@@ -67,8 +67,8 @@ export class NDN {
         `最 小: ${minValue} (${min(result2)})`,
         `最 大: ${maxValue} (${max(result2)})`,
         `中 央: ${centerValue} (${median(result2)})`,
-        `最 頻: ${modeValues.join(', ')} (${mode(result2).join(', ')})`,
         `平 均: ${average} (${mean(result2)})`,
+          mode(result2).sort((a:number, b:number) => a - b)
         '`()` 内は 100 を 0 とした場合の値'
       ].join('\n');
     }
