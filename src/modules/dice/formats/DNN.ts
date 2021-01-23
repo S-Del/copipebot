@@ -27,10 +27,12 @@ export class DNN {
 
     if (!this.maxValue1) {
       this.errorMessageList.push('1 個目のダイスの面数が 0 か数字以外の文字だったよ');
+      return;
     }
 
     if (!this.maxValue2) {
       this.errorMessageList.push('2 個目のダイスの面数が 0 か数字以外の文字だったよ');
+      return;
     }
 
     if (this.maxValue1 > 9) {
@@ -59,7 +61,7 @@ export class DNN {
 
     return [
       `${NUMBER_EMOJI_LIST[result1]} ${NUMBER_EMOJI_LIST[result2]}`,
-      `結果: ${result3}`
+      `結果: **${result3}**`
     ].join('\n');
   }
 
