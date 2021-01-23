@@ -62,13 +62,13 @@ export class NDN {
 
       return [
         '出た目:',
-        `\`\`\`${result.join(', ')}\`\`\``,
-        `合 計: ${total} (${sum(result2)})`,
-        `最 小: ${minValue} (${min(result2)})`,
-        `最 大: ${maxValue} (${max(result2)})`,
-        `中 央: ${centerValue} (${median(result2)})`,
-        `平 均: ${average} (${mean(result2)})`,
+        '\`\`\`',
+        result.join(', '),
+        '\`\`\`',
+        `最 頻: [${modeValues.join(', ')}] (${
           mode(result2).sort((a:number, b:number) => a - b)
+                       .join(', ')
+        })`,
         `合 計: **${total}** (${sum(result2)})`,
         `最 小: **${minValue}** (${min(result2)})`,
         `最 大: **${maxValue}** (${max(result2)})`,
@@ -80,13 +80,10 @@ export class NDN {
 
     return [
       '出た目:',
-      `\`\`\`${result.join(', ')}\`\`\``,
-      `合 計: ${total}`,
-      `最 小: ${minValue}`,
-      `最 大: ${maxValue}`,
-      `中 央: ${centerValue}`,
-      `最 頻: ${modeValues.join(', ')}`,
-      `平 均: ${average}`
+      '\`\`\`',
+      result.join(', '),
+      '\`\`\`',
+      `最 頻: [${modeValues.join(', ')}]`,
       `合 計: **${total}**`,
       `最 小: **${minValue}**`,
       `最 大: **${maxValue}**`,
