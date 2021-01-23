@@ -17,7 +17,7 @@
 ## emoji
 半角英数字を対応した絵文字に変換して送信する  
 ```
-cb emoji <半角英数字>
+cb emoji [半角英数字]
 ```
 例 1) `cb emoji hello!?`  
 ![emoji hello!?](https://gitlab.com/S-Del_discordbot/copipebot/uploads/4815289101884cc5d40fe41b45fe7d43/image.png)  
@@ -65,7 +65,7 @@ cb dice <面の数><面の数>
 ## survey
 アンケートを作成し回答用リアクション付きのメッセージを送信する  
 ```
-cb survey <アンケートタイトル> <選択肢1>,,,<選択肢8>
+cb survey <アンケートタイトル> [選択肢 2...8]
 ```
 例) `cb survey あなたは何色が好き？ 赤 緑 青`  
 ![survey](https://gitlab.com/S-Del_discordbot/copipebot/uploads/32c73cf99de167691d650a9063b3da3f/image.png)  
