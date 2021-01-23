@@ -33,7 +33,7 @@ cb emoji [半角英数字]
 ### 回数と面数を指定する形式
 指定された面数を持つサイコロを指定された回数振りその結果を表示する  
 ```
-cb dice <振る回数>D<面の数>
+cb dice <振る回数>D<面数>
 ```
 例 1) `cb dice 1D100`  
 ![dice 1D100](https://gitlab.com/S-Del_discordbot/copipebot/uploads/d6b894528f814295c2c4dedeec8304b5/image.png)  
@@ -51,14 +51,14 @@ cb dice <振る回数>D<面の数>
 ### 2個のダイスの面数を指定する形式
 指定された面数を持つサイコロを2個振り小さい値が出たほうを十の位として結果を表示する  
 ```
-cb dice <面の数><面の数>
+cb dice <1個目の面数><2個目の面数>
 ```
 例 1) `cb dice 66`  
 ![dice 66](https://gitlab.com/S-Del_discordbot/copipebot/uploads/cadd75076fcf988faba9f5d0d9c7e5ae/image.png)  
 例 2) `cb dice 92`  
 ![dice 92](https://gitlab.com/S-Del_discordbot/copipebot/uploads/b251ca7bd710074f8af56369d5883466/image.png)  
-- 各サイコロの面数に指定できる最大値は `9`
-- 各サイコロの面数に指定できる最小値は `2`
+- 各サイコロの面数に指定できる最小数は `2`
+- 各サイコロの面数に指定できる最大数は `9`
 - 各サイコロに別の値を設定できる
 
 
@@ -69,7 +69,8 @@ cb survey <アンケートタイトル> [選択肢 2...8]
 ```
 例) `cb survey あなたは何色が好き？ 赤 緑 青`  
 ![survey](https://gitlab.com/S-Del_discordbot/copipebot/uploads/32c73cf99de167691d650a9063b3da3f/image.png)  
-- 選択肢は `8` つまで
+- 選択肢の最小数は `2`
+- 選択肢の最大数は `8`
 - 選択肢の末尾に `これら以外` が自動で付加される
 
 
