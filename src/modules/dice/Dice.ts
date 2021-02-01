@@ -1,11 +1,11 @@
-import { DNN } from "./formats/DNN";
-import { NDN } from "./formats/NDN";
+import { DNN } from './formats/DNN';
+import { NDN } from './formats/NDN';
 
 export class Dice {
-  private readonly rowMessage:string;
-  private readonly errorMessageList:string[];
+  private readonly rowMessage: string;
+  private readonly errorMessageList: string[];
 
-  constructor(message:string) {
+  constructor(message: string) {
     this.rowMessage = message;
 
     this.errorMessageList = [];
@@ -32,9 +32,9 @@ export class Dice {
       this.errorMessageList.push('ダイスにできない文字が含まれていたよ');
       return;
     }
-  }
+  };
 
-  readonly response = ():string => {
+  readonly response = (): string => {
     if (this.errorMessageList.length > 0) {
       return this.errorMessageList.join('\n');
     }
@@ -52,5 +52,5 @@ export class Dice {
     }
 
     return 'ダイスにできない文字列だったよ';
-  }
+  };
 }
