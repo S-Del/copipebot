@@ -49,12 +49,14 @@ export class NDN {
     const result = new Array<number>(this.count)
                    .fill(NaN)
                    .map(() => randomInt(1, this.maxValue + 1));
-    const total = sum(result);
-    const minValue = min(result);
-    const maxValue = max(result);
-    const centerValue = median(result);
-    const modeValues = mode(result).sort((a:number, b:number) => a - b);
-    const average = mean(result);
+    const total = sum(result) as number;
+    const minValue = min(result) as number;
+    const maxValue = max(result) as number;
+    const centerValue = median(result) as number;
+    const modeValues = (mode(result) as number[]).sort(
+      (a: number, b: number) => a - b
+    );
+    const average = mean(result) as number;
 
     // 100 の目を 0 とする場合の処理
     if (this.maxValue == 100) {
@@ -65,16 +67,15 @@ export class NDN {
         '\`\`\`',
         result.join(', '),
         '\`\`\`',
-        `最 頻: [${modeValues.join(', ')}] (${
-          mode(result2).sort((a:number, b:number) => a - b)
-                       .join(', ')
-        })`,
-        `合 計: **${total}** (${sum(result2)})`,
-        `最 小: **${minValue}** (${min(result2)})`,
-        `最 大: **${maxValue}** (${max(result2)})`,
-        `中 央: **${centerValue}** (${median(result2)})`,
-        `平 均: **${average}** (${mean(result2)})`,
         '`()` 内は 100 を 0 とした場合の値'
+        `最 頻: [${modeValues.join(', ')}] (${(mode(result2) as number[])
+          .sort((a: number, b: number) => a - b)
+          .join(', ')})`,
+        `合 計: **${total}** (${sum(result2) as number})`,
+        `最 小: **${minValue}** (${min(result2) as number})`,
+        `最 大: **${maxValue}** (${max(result2) as number})`,
+        `中 央: **${centerValue}** (${median(result2) as number})`,
+        `平 均: **${average}** (${mean(result2) as number})`,
       ].join('\n');
     }
 
