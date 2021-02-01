@@ -1,13 +1,13 @@
-import { Message } from "discord.js";
-import { UNICODE_NUMBER_EMOJI_LIST } from "../common/common";
+import { Message } from 'discord.js';
+import { UNICODE_NUMBER_EMOJI_LIST } from '../common/common';
 
 export class Survey {
-  private readonly rowMessageList:readonly string[];
-  private readonly errorMessageList:string[];
-  private surveyTitle:string;
-  private surveyOptions:string[];
+  private readonly rowMessageList: readonly string[];
+  private readonly errorMessageList: string[];
+  private surveyTitle: string;
+  private surveyOptions: string[];
 
-  constructor(messageList:string[]) {
+  constructor(messageList: string[]) {
     this.rowMessageList = messageList;
     this.surveyTitle = '';
     this.surveyOptions = [];
@@ -27,19 +27,19 @@ export class Survey {
     }
 
     if (this.rowMessageList.length < 3) {
-      this.errorMessageList.push('選択肢が少なすぎるよ')
+      this.errorMessageList.push('選択肢が少なすぎるよ');
       return;
     }
 
     this.surveyTitle = `**${this.rowMessageList[0]}**`;
-    this.surveyOptions =
-        this.rowMessageList
-        .slice(1)
-        .map((value, index) =>
-            `${UNICODE_NUMBER_EMOJI_LIST[index + 1]} ${value}`);
-  }
+    this.surveyOptions = this.rowMessageList
+      .slice(1)
+      .map(
+        (value, index) => `${UNICODE_NUMBER_EMOJI_LIST[index + 1]} ${value}`
+      );
+  };
 
-  readonly response = ():string => {
+  readonly response = (): string => {
     if (this.errorMessageList.length > 0) {
       return this.errorMessageList.join('\n');
     }
@@ -49,11 +49,11 @@ export class Survey {
       '- - - - - - - - - -',
       `${this.surveyOptions.join('\n')}`,
       `${UNICODE_NUMBER_EMOJI_LIST[this.surveyOptions.length + 1]} これら以外`,
-      '= = = = = = = = = ='
+      '= = = = = = = = = =',
     ].join('\n');
-  }
+  };
 
-  readonly react = (sent:Message):void => {
+  readonly react = (sent: Message): void => {
     if (this.errorMessageList.length > 0) {
       return;
     }
@@ -62,5 +62,5 @@ export class Survey {
       await sent.react(`${UNICODE_NUMBER_EMOJI_LIST[index + 1]}`);
     });
     sent.react(`${UNICODE_NUMBER_EMOJI_LIST[this.surveyOptions.length + 1]}`);
-  }
+  };
 }
