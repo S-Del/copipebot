@@ -4,8 +4,8 @@
   "description": "Discord CopipeBot",
   "main": "build/main.js",
   "scripts": {
-    "build": "tsc -p ./src/tsconfig.json",
-    "watch": "tsc -p ./src/tsconfig.json --watch"
+    "lint": "eslint src/**/*.ts",
+    "format": "prettier --write src/**/*.ts"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,12 @@
   },
   "devDependencies": {
     "@types/mathjs": "^6.0.11",
-    "@types/node": "^10.17.50"
+    "@types/node": "^10.17.50",
+    "@typescript-eslint/eslint-plugin": "^4.14.1",
+    "@typescript-eslint/parser": "^4.14.1",
+    "eslint": "^7.19.0",
+    "eslint-config-prettier": "^7.2.0",
+    "prettier": "^2.2.1",
+    "typescript": "^4.1.3"
   }
 }
