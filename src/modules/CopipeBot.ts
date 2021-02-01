@@ -46,29 +46,33 @@ export class CopipeBot {
       if (/^emoji$/.test(subCommand)) {
         const emoji = new EmojiString(messageList.slice(2).join(' '));
         const response = emoji.response();
-        message.channel.send(response);
+        void message.channel.send(response);
         return;
       }
 
       if (/^dice$/.test(subCommand)) {
         const dice = new Dice(messageList[2]);
         const response = dice.response();
-        message.channel.send(response);
+        void message.channel.send(response);
         return;
       }
 
       if (/^survey$/.test(subCommand)) {
         const survey = new Survey(messageList.slice(2));
         const response = survey.response();
-        message.channel.send(response).then(sent => {
-          survey.react(sent);
-        });
-        message.delete();
+        message.channel
+          .send(response)
+          .then((sent) => {
+            survey.react(sent);
+          })
+          .catch((message) => {
+            console.log(message);
+          });
+        void message.delete();
         return;
       }
 
       if (/^help$/.test(subCommand)) {
-        message.channel.send([
           'こぴぺボットでは以下のコマンドが利用できます',
           '```',
           SUB_COMMAND_NAME_LIST.join('\n'),
@@ -76,10 +80,11 @@ export class CopipeBot {
           '詳細は以下のページをご覧ください',
           'https://gitlab.com/S-Del_discordbot/copipebot/-/blob/main/README.md'
         ].join('\n'));
+        void message.channel.send(
         return;
       }
 
-      message.channel.send('コマンドが分かりませんでした');
+      void message.channel.send('コマンドが分かりませんでした');
       return;
     });
   };
@@ -87,7 +92,13 @@ export class CopipeBot {
   readonly run = ():void => {
     if (this.isRunning) { return; }
 
-    this.client.login(this.TOKEN);
-    this.isRunning = true;
+    this.client
+      .login(this.TOKEN)
+      .then(() => {
+        this.isRunning = true;
+      })
+      .catch((message: string) => {
+        console.log(message);
+      });
   };
 }
