@@ -7,14 +7,14 @@ import { Survey } from './survey/Survey';
 import { SUB_COMMAND_NAME_LIST } from './common/common';
 
 export class CopipeBot {
-  private static instance:CopipeBot;
-  private readonly TOKEN:string;
-  private readonly client:Client;
-  private readonly commandValidator:CommandValidator;
-  private readonly subCommandValidator:SubCommandValidator;
-  private isRunning:boolean;
+  private static instance: CopipeBot;
+  private readonly TOKEN: string;
+  private readonly client: Client;
+  private readonly commandValidator: CommandValidator;
+  private readonly subCommandValidator: SubCommandValidator;
+  private isRunning: boolean;
 
-  private constructor(token:string) {
+  private constructor(token: string) {
     this.TOKEN = token;
     this.client = new Client();
     this.commandValidator = new CommandValidator();
@@ -23,7 +23,7 @@ export class CopipeBot {
     this.defineEvents();
   }
 
-  static readonly getInstance = (token:string):CopipeBot => {
+  static readonly getInstance = (token: string): CopipeBot => {
     if (!CopipeBot.instance) {
       CopipeBot.instance = new CopipeBot(token);
     }
@@ -31,17 +31,25 @@ export class CopipeBot {
     return CopipeBot.instance;
   };
 
-  private readonly defineEvents = ():void => {
-    this.client.on('message', (message:Message) => {
-      if (message.author.bot) { return; }
+  private readonly defineEvents = (): void => {
+    this.client.on('message', (message: Message) => {
+      if (message.author.bot) {
+        return;
+      }
 
       const messageList = message.content.split(/\s/);
-      if (messageList.length < 2) { return; }
+      if (messageList.length < 2) {
+        return;
+      }
 
-      if (!this.commandValidator.isValid(messageList[0])) { return; }
+      if (!this.commandValidator.isValid(messageList[0])) {
+        return;
+      }
 
       const subCommand = messageList[1];
-      if (!this.subCommandValidator.isValid(subCommand)) { return; };
+      if (!this.subCommandValidator.isValid(subCommand)) {
+        return;
+      }
 
       if (/^emoji$/.test(subCommand)) {
         const emoji = new EmojiString(messageList.slice(2).join(' '));
@@ -73,14 +81,16 @@ export class CopipeBot {
       }
 
       if (/^help$/.test(subCommand)) {
-          'こぴぺボットでは以下のコマンドが利用できます',
-          '```',
-          SUB_COMMAND_NAME_LIST.join('\n'),
-          '```',
-          '詳細は以下のページをご覧ください',
-          'https://gitlab.com/S-Del_discordbot/copipebot/-/blob/main/README.md'
-        ].join('\n'));
         void message.channel.send(
+          [
+            'こぴぺボットでは以下のコマンドが利用できます',
+            '```',
+            SUB_COMMAND_NAME_LIST.join('\n'),
+            '```',
+            '詳細は以下のページをご覧ください',
+            'https://gitlab.com/S-Del_discordbot/copipebot/-/blob/main/README.md',
+          ].join('\n')
+        );
         return;
       }
 
@@ -89,8 +99,10 @@ export class CopipeBot {
     });
   };
 
-  readonly run = ():void => {
-    if (this.isRunning) { return; }
+  readonly run = (): void => {
+    if (this.isRunning) {
+      return;
+    }
 
     this.client
       .login(this.TOKEN)

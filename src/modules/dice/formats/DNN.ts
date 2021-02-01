@@ -2,12 +2,12 @@ import { randomInt } from 'mathjs';
 import { NUMBER_EMOJI_LIST } from '../../common/common';
 
 export class DNN {
-  private readonly rowFormat:string;
-  private maxValue1:number;
-  private maxValue2:number;
-  private readonly errorMessageList:string[];
+  private readonly rowFormat: string;
+  private maxValue1: number;
+  private maxValue2: number;
+  private readonly errorMessageList: string[];
 
-  constructor(format:string) {
+  constructor(format: string) {
     this.rowFormat = format;
     this.maxValue1 = NaN;
     this.maxValue2 = NaN;
@@ -26,12 +26,16 @@ export class DNN {
     this.maxValue2 = Number(this.rowFormat[1]);
 
     if (!this.maxValue1) {
-      this.errorMessageList.push('1 個目のダイスの面数が 0 か数字以外の文字だったよ');
+      this.errorMessageList.push(
+        '1 個目のダイスの面数が 0 か数字以外の文字だったよ'
+      );
       return;
     }
 
     if (!this.maxValue2) {
-      this.errorMessageList.push('2 個目のダイスの面数が 0 か数字以外の文字だったよ');
+      this.errorMessageList.push(
+        '2 個目のダイスの面数が 0 か数字以外の文字だったよ'
+      );
       return;
     }
 
@@ -50,26 +54,25 @@ export class DNN {
     if (this.maxValue2 < 2) {
       this.errorMessageList.push('2 個目のダイスの面数が少なすぎるよ');
     }
-  }
+  };
 
-  private readonly roll = ():string => {
+  private readonly roll = (): string => {
     const result1 = randomInt(1, this.maxValue1 + 1);
     const result2 = randomInt(1, this.maxValue2 + 1);
-    const result3 = result1 > result2
-                    ? `${result2}${result1}`
-                    : `${result1}${result2}`;
+    const result3 =
+      result1 > result2 ? `${result2}${result1}` : `${result1}${result2}`;
 
     return [
       `${NUMBER_EMOJI_LIST[result1]} ${NUMBER_EMOJI_LIST[result2]}`,
-      `結果: **${result3}**`
+      `結果: **${result3}**`,
     ].join('\n');
-  }
+  };
 
-  readonly response = ():string => {
+  readonly response = (): string => {
     if (this.errorMessageList.length > 0) {
       return this.errorMessageList.join('\n');
     }
 
     return this.roll();
-  }
+  };
 }
