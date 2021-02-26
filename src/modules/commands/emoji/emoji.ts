@@ -11,24 +11,17 @@ export const UNICODE_NUMBER_EMOJI_LIST = [
 
 export const toEmojiString = (target: string): string => {
   const PREFIX = 'regional_indicator';
-  const emojiList = Array.from(target, (c) => {
-    if (/[a-z]/.test(c)) {
-      return `:${PREFIX}_${c}:`;
-    } else if (/[A-Z]/.test(c)) {
-      return `:${PREFIX}_${c.toLowerCase()}:`;
-    } else if (/[0-9]/.test(c)) {
-      return `${NUMBER_EMOJI_LIST[Number(c)]}`;
-    } else if (/\s/.test(c)) {
-      return '      ';
-    } else if (/!/.test(c)) {
-      return ':grey_exclamation:';
-    } else if (/\?/.test(c)) {
-      return ':grey_question:';
-    } else {
-      return;
+  const emojiList = Array.from(target, (c: string): string => {
+    switch (true) {
+      default: return '';
+      case /[a-z]/.test(c): return `:${PREFIX}_${c}:`;
+      case /[A-Z]/.test(c): return `:${PREFIX}_${c.toLowerCase()}:`;
+      case /[0-9]/.test(c): return `${NUMBER_EMOJI_LIST[Number(c)]}`;
+      case /\s/.test(c):    return '      ';
+      case /!/.test(c):     return ':grey_exclamation:';
+      case /\?/.test(c):    return ':grey_question:';
     }
   });
-
   return emojiList.join(' ');
 };
 
