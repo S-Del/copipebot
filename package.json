@@ -19,7 +19,7 @@
     "discord.js"
   ],
   "author": "S-Del",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "discord.js": "^12.5.1",
     "mathjs": "^8.1.1"
