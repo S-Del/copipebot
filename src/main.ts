@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 
-import { CopipeBot } from './modules/CopipeBot';
+import { createClient } from './modules/copipe_bot';
 
 (() => {
   const TOKEN = process.env.COPIPE_BOT_TOKEN;
@@ -8,6 +8,6 @@ import { CopipeBot } from './modules/CopipeBot';
     throw new Error('トークンが見つかりませんでした');
   }
 
-  const copipebot = CopipeBot.getInstance(TOKEN);
-  copipebot.run();
+  const copipebot = createClient();
+  void copipebot.login(TOKEN);
 })();
