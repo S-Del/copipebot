@@ -3,19 +3,19 @@ import * as commands from '.';
 import { shouldReadOut } from './speak/speak';
 
 const PREFIX_LIST = ['cb', 'copipebot'] as const;
-const MIN_PREFIX_LEN = PREFIX_LIST.map((prefix) => prefix.length)
+const MIN_PREFIX_LEN = PREFIX_LIST.map(prefix => prefix.length)
                                   .reduce((acc, cur) => Math.min(acc, cur));
-const MAX_PREFIX_LEN = PREFIX_LIST.map((prefix) => prefix.length)
+const MAX_PREFIX_LEN = PREFIX_LIST.map(prefix => prefix.length)
                                   .reduce((acc, cur) => Math.max(acc, cur));
 
 const COMMAND_LIST = [
   'emoji', 'dice', 'survey','join', 'leave', 'help'
 ] as const;
 const MIN_COMMAND_NAME_LEN =
-    COMMAND_LIST.map((command) => command.length)
+    COMMAND_LIST.map(command => command.length)
                 .reduce((acc, cur) => Math.min(acc, cur));
 const MAX_COMMAND_NAME_LEN =
-    COMMAND_LIST.map((command) => command.length)
+    COMMAND_LIST.map(command => command.length)
                 .reduce((acc, cur) => Math.max(acc, cur));
 
 const isValidPrefix = (prefix: string): boolean => {
