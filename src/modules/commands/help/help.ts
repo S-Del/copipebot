@@ -1,7 +1,7 @@
 import { Message } from 'discord.js';
 
 export const help = (message: Message, commandList: readonly string[]): void => {
-  void message.channel.send([
+  void message.reply([
     'こぴぺボットでは以下のコマンドが利用できます',
     '```',
     commandList.join('\n'),
