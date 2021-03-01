@@ -20,6 +20,7 @@
   "author": "S-Del",
   "license": "MIT",
   "dependencies": {
+    "@discordjs/opus": "^0.4.0",
     "axios": "^0.21.1",
     "discord.js": "^12.5.1",
     "mathjs": "^8.1.1"
