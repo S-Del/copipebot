@@ -87,4 +87,13 @@ export const defineCommand = (client: Client): void => {
       return;
     }
   });
+
+  client.on('voiceStateUpdate', oldState => {
+    const conn = client.voice?.connections.get(oldState.guild.id);
+    if (!conn) return;
+    if (!conn.channel) return;
+    if (conn.channel.members.array().length < 2) {
+      conn.disconnect();
+    }
+  });
 };
