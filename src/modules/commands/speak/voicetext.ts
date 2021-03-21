@@ -39,7 +39,6 @@ const readMessage = (
       speaker: 'show'
     }
   }).then(resp => {
-    console.log(`VoiceTextAPI Status: ${resp.status}`);
     const stream = new Readable();
     stream.push(resp.data)
     stream.push(null);
