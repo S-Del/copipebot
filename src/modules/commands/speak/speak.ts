@@ -1,6 +1,8 @@
 import { Client, Message } from 'discord.js';
 
 export const shouldReadOut = (client: Client, message: Message): boolean => {
+  if (!message.content) return false;
+
   const guildID = message.guild?.id;
   if (!guildID) return false;
 
