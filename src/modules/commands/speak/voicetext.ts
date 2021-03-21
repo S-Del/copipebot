@@ -8,7 +8,9 @@ const sanitizeText = (text: string): string => {
   let message = text.replace(/https?:\/\/\S+/g, 'URL省略')
                     .replace(/<a?:.*?:\d+/g, '')
                     .replace(/<@&?\d+>/g, '')
-                    .replace(/<#\d+>/g, '');
+                    .replace(/<#\d+>/g, '')
+                    .replace(/[wWｗＷ]{2,}/g, 'わらわら')
+                    .replace(/[wWｗＷ]$/g, 'わら');
   if (message.length > 200) {
     message = message.slice(0, 196) + ' 以下略';
   }
@@ -37,7 +39,6 @@ const readMessage = (
       speaker: 'show'
     }
   }).then(resp => {
-    console.log(`VoiceTextAPI Status: ${resp.status}`);
     const stream = new Readable();
     stream.push(resp.data)
     stream.push(null);
