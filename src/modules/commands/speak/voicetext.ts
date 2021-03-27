@@ -9,6 +9,7 @@ const sanitizeText = (text: string): string => {
                     .replace(/<a?:.*?:\d+/g, '')
                     .replace(/<@&?\d+>/g, '')
                     .replace(/<#\d+>/g, '')
+                    .replace(/ʬ+/g, 'わらわら')
                     .replace(/[wWｗＷ]{2,}/g, 'わらわら')
                     .replace(/[wWｗＷ]$/g, 'わら');
   if (message.length > 200) {
