@@ -11,6 +11,8 @@
 - emoji
 - dice
 - survey
+- join
+- leave
 - help
 
 
