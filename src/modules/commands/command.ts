@@ -9,7 +9,7 @@ const MAX_PREFIX_LEN = PREFIX_LIST.map(prefix => prefix.length)
                                   .reduce((acc, cur) => Math.max(acc, cur));
 
 const COMMAND_LIST = [
-  'emoji', 'dice', 'survey','join', 'leave', 'help'
+  'emoji', 'dice', 'survey', 'join', 'leave', 'help'
 ] as const;
 const MIN_COMMAND_NAME_LEN =
     COMMAND_LIST.map(command => command.length)
