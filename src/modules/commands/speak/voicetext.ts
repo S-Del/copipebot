@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Readable } from 'stream';
 
 const VOICE_TEXT_API_KEY = process.env.VOICE_TEXT_API_KEY;
+const READ_MESSAGE_LIMIT_LENGTH = 50;
 
 const sanitizeText = (text: string): string => {
   let message = text.replace(/https?:\/\/\S+/g, 'URL省略')
@@ -12,8 +13,8 @@ const sanitizeText = (text: string): string => {
                     .replace(/ʬ+/g, 'わらわら')
                     .replace(/[wWｗＷ]{2,}/g, 'わらわら')
                     .replace(/[wWｗＷ]$/g, 'わら');
-  if (message.length > 200) {
-    message = message.slice(0, 196) + ' 以下略';
+  if (message.length > READ_MESSAGE_LIMIT_LENGTH) {
+    message = message.slice(0, READ_MESSAGE_LIMIT_LENGTH - 4) + ' 以下略';
   }
 
   return message;
@@ -47,9 +48,8 @@ const readMessage = (
   }).catch(reason => {
     console.error(reason);
     void message.reply(
-      'VoiceTextAPI でエラーが発生しています。後ほどお試しください。'
+      '読み上げに失敗しました。VoiceTextAPI でエラーが発生しています。'
     );
-    conn.disconnect();
   });
 };
 
