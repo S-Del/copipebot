@@ -7,8 +7,8 @@
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "sourceType": "module",
-    "ecmaVersion": 2020,
-    "project": ["./tsconfig.eslint.json"]
+    "ecmaVersion": 2021,
+    "project": ["./tsconfig.json"]
   },
   "plugins": ["@typescript-eslint"],
   "extends": [
@@ -17,6 +17,8 @@
     "plugin:@typescript-eslint/recommended-requiring-type-checking"
   ],
   "rules":{
-    "complexity": ["warn", 10]
+    "complexity": ["warn", 10],
+    "no-empty-interface": false,
+    "no-throw-litteral": "warn"
   }
 }
