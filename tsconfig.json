@@ -1,14 +1,24 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "ES2021",
     "module": "commonjs",
-    "lib": ["ES2020"],
+    "lib": ["ES2021"],
+    "rootDir": "./src",
     "outDir": "./build",
     "removeComments": true,
-    "newLine": "lf",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
-  }
+    "forceConsistentCasingInFileNames": true,
+    "newLine": "lf",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "types": ["node", "reflect-metadata"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.json"
+  ]
 }
