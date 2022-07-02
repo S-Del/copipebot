@@ -2,10 +2,10 @@ import { inject, injectable } from 'inversify';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { RESTPostAPIApplicationCommandsJSONBody } from 'discord-api-types/v9';
 import { CommandInteraction, CacheType } from 'discord.js';
+import { Symbols } from '../../../config/';
 import { NumberOfSurface, RollAmount } from '../../../domain/model/dice/';
 import { RollDiceUseCase } from '../../../usecase/dice/';
 import { ISlashCommand } from './';
-import { Symbols } from '../../../config';
 
 @injectable()
 export class DiceCommand implements ISlashCommand {
@@ -28,14 +28,12 @@ export class DiceCommand implements ISlashCommand {
     ): Promise<void> => {
         try {
             const result = this.rollDiceUseCase.handle({
-                surface:
-                    interaction.options.getInteger(
-                        DiceCommand.SURFACE_LABEL, true
-                    ),
-                amount:
-                    interaction.options.getInteger(
-                        DiceCommand.AMOUNT_LABEL, true
-                    )
+                surface: interaction.options.getInteger(
+                    DiceCommand.SURFACE_LABEL, true
+                ),
+                amount: interaction.options.getInteger(
+                    DiceCommand.AMOUNT_LABEL, true
+                )
             });
             await interaction.reply(result);
         } catch (err) {
@@ -54,9 +52,7 @@ export class DiceCommand implements ISlashCommand {
                .setDescription(DiceCommand.DESCRIPTION)
                .addIntegerOption((option) => {
                    return option.setName(DiceCommand.AMOUNT_LABEL)
-                                .setDescription(
-                                    DiceCommand.AMOUNT_DESCRIPTION
-                                )
+                                .setDescription(DiceCommand.AMOUNT_DESCRIPTION)
                                 .setMinValue(RollAmount.MIN)
                                 .setMaxValue(RollAmount.MAX)
                                 .setRequired(true)
