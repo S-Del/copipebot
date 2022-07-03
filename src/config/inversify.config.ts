@@ -20,14 +20,18 @@ import {
 import { Symbols } from './';
 
 export const container = ((): Container => {
+    const env = process.env.NODE_ENV;
+    const discordToken = env === 'production' ? process.env.COPIPE_BOT_TOKEN
+                                              : process.env.TEST_BOT_TOKEN;
+    const discordAppId = env === 'production' ? process.env.COPIPE_BOT_APP_ID
+                                              : process.env.TEST_BOT_APP_ID;
+
     const container = new Container();
 
     container.bind<string | undefined>(Symbols.Discord.Token)
-//           .toConstantValue(process.env.TEST_BOT_TOKEN);
-             .toConstantValue(process.env.COPIPE_BOT_TOKEN);
+             .toConstantValue(discordToken);
     container.bind<Snowflake | undefined>(Symbols.Discord.ApplicationId)
-//           .toConstantValue(process.env.TEST_BOT_APPLICATION_ID);
-             .toConstantValue(process.env.COPIPE_BOT_APPLICATION_ID);
+             .toConstantValue(discordAppId);
     container.bind<string | undefined>(Symbols.VoiceText.ApiKey)
              .toConstantValue(process.env.VOICETEXT_API_KEY);
 
