@@ -11,8 +11,8 @@
 
 
 ## `/dice`
-![image](/uploads/f4b9e37e564eaf1408ce9cb7988ba2a1/image.png)  
-指定した面数と回 (個) 数のダイスを振った結果をリプライする
+指定した面数と回 (個) 数のダイスを振った結果を表示する  
+![image](/uploads/f4b9e37e564eaf1408ce9cb7988ba2a1/image.png)
 ### フォーマット
 /dice amount:\<*回 (個) 数*\> surface:\<*面数*\> \[secret\]:*真偽値*
 ### オプション
