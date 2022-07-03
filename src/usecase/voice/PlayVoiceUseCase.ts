@@ -10,7 +10,7 @@ import { GuildAudioPlayerMap } from './map/';
 @injectable()
 export class PlayVoiceUseCase {
     constructor(
-        @inject(Symbols.Discord.GuildAudioPlayerMap)
+        @inject(Symbols.UseCase.Map.GuildAudioPlayerMap)
         private readonly guildAudioPlayerMap: GuildAudioPlayerMap,
         @inject(Symbols.Infrastructure.VoiceTextApiClient)
         private readonly voiceTextApiClient: VoiceTextApiClient

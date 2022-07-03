@@ -7,9 +7,9 @@ import { ConnectingChannelMap, GuildAudioPlayerMap } from './map/';
 @injectable()
 export class LeaveChannelUseCase {
     constructor(
-        @inject(Symbols.Discord.GuildAudioPlayerMap)
+        @inject(Symbols.UseCase.Map.GuildAudioPlayerMap)
         private readonly guildAudioPlayerMap: GuildAudioPlayerMap,
-        @inject(Symbols.Discord.ConnectingChannelMap)
+        @inject(Symbols.UseCase.Map.ConnectingChannelMap)
         private readonly connectingChannelMap: ConnectingChannelMap
     ) {}
 

@@ -47,12 +47,14 @@ export const container = ((): Container => {
     ).to(VoiceTextApiClient)
      .inSingletonScope();
 
-    container.bind<GuildAudioPlayerMap>(Symbols.Discord.GuildAudioPlayerMap)
-             .to(GuildAudioPlayerMap)
-             .inSingletonScope();
-    container.bind<ConnectingChannelMap>(Symbols.Discord.ConnectingChannelMap)
-             .to(ConnectingChannelMap)
-             .inSingletonScope()
+    container.bind<GuildAudioPlayerMap>(
+        Symbols.UseCase.Map.GuildAudioPlayerMap
+    ).to(GuildAudioPlayerMap)
+     .inSingletonScope();
+    container.bind<ConnectingChannelMap>(
+        Symbols.UseCase.Map.ConnectingChannelMap
+    ).to(ConnectingChannelMap)
+     .inSingletonScope()
 
     container.bind<RollDiceUseCase>(Symbols.UseCase.RollDice)
              .to(RollDiceUseCase)
