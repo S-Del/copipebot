@@ -5,8 +5,6 @@ const Discord = {
     Bot: Symbol.for('DiscordBot'),
     ClientEvents: Symbol.for('DiscordClientEvents'),
     SlashCommands: Symbol.for('DiscordSlashCommands'),
-    GuildAudioPlayerMap: Symbol.for('GuildAudioPlayerMap'),
-    ConnectingChannelMap: Symbol.for('ConnectingChannelMap')
 } as const;
 
 const Infrastructure = {
@@ -14,6 +12,10 @@ const Infrastructure = {
 } as const;
 
 const UseCase = {
+    Map: {
+        GuildAudioPlayerMap: Symbol.for('GuildAudioPlayerMap'),
+        ConnectingChannelMap: Symbol.for('ConnectingChannelMap')
+    },
     RollDice: Symbol.for('RollDiceUseCase'),
     JoinChannel: Symbol.for('JoinChannelUseCase'),
     LeaveChannel: Symbol.for('LeaveChannelUseCase'),

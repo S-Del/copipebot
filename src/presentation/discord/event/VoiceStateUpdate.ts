@@ -11,7 +11,7 @@ export class VoiceStateUpdate implements IClientEvent {
     static readonly IS_ONCE = false;
 
     constructor(
-        @inject(Symbols.Discord.ConnectingChannelMap)
+        @inject(Symbols.UseCase.Map.ConnectingChannelMap)
         private readonly connectingChannelMap: ConnectingChannelMap,
         @inject(Symbols.UseCase.LeaveChannel)
         private readonly leaveChannelUseCase: LeaveChannelUseCase

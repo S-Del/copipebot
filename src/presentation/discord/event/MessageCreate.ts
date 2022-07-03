@@ -1,8 +1,8 @@
 import { inject, injectable } from 'inversify';
 import { ClientEvents, Message } from 'discord.js';
-import { getVoiceConnection } from '@discordjs/voice';
 import { Symbols } from '../../../config/';
 import { PlayVoiceUseCase } from '../../../usecase/voice/';
+import { ConnectingChannelMap } from '../../../usecase/voice/map';
 import { IClientEvent } from './';
 
 @injectable()
@@ -11,6 +11,8 @@ export class MessageCreate implements IClientEvent {
     static readonly IS_ONCE = false;
 
     constructor(
+        @inject(Symbols.UseCase.Map.ConnectingChannelMap)
+        private readonly connectingChannelMap: ConnectingChannelMap,
         @inject(Symbols.UseCase.PlayVoice)
         private readonly playVoiceUseCase: PlayVoiceUseCase
     ) {}
@@ -21,9 +23,13 @@ export class MessageCreate implements IClientEvent {
     }
 
     readonly execute = async (message: Message): Promise<void> => {
-        if (!MessageCreate.isValid(message)) return;
         if (!message.guild) return;
-        if (!getVoiceConnection(message.guild.id)) return;
+        const channelId = this.connectingChannelMap.get(message.guild.id);
+        if (!channelId) return;
+        const channel = await message.guild.channels.fetch(channelId);
+        if (!channel || !channel.isVoice()) return;
+        if (!channel.members.has(message.author.id)) return;
+        if (!MessageCreate.isValid(message)) return;
 
         try {
             await this.playVoiceUseCase.handle({
