@@ -23,8 +23,10 @@ export const container = ((): Container => {
     const container = new Container();
 
     container.bind<string | undefined>(Symbols.Discord.Token)
+//           .toConstantValue(process.env.TEST_BOT_TOKEN);
              .toConstantValue(process.env.COPIPE_BOT_TOKEN);
     container.bind<Snowflake | undefined>(Symbols.Discord.ApplicationId)
+//           .toConstantValue(process.env.TEST_BOT_APPLICATION_ID);
              .toConstantValue(process.env.COPIPE_BOT_APPLICATION_ID);
     container.bind<string | undefined>(Symbols.VoiceText.ApiKey)
              .toConstantValue(process.env.VOICETEXT_API_KEY);

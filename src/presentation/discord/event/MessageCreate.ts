@@ -26,7 +26,6 @@ export class MessageCreate implements IClientEvent {
         if (!getVoiceConnection(message.guild.id)) return;
 
         try {
-            // ToDo: ボイスチャンネル内のテキストチャットのみ読み上げるようにしたい
             await this.playVoiceUseCase.handle({
                 guildId: message.guild.id,
                 authorName: message.author.username,
