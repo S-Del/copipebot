@@ -18,11 +18,13 @@ export class DiceCommand implements ISlashCommand {
     static readonly SURFACE_LABEL = 'surface';
     static readonly SURFACE_DESCRIPTION = 'ダイスの面数を入力';
 
+    static readonly SECRET_LABEL = 'secret';
+    static readonly SECRET_DESCRIPTION = 'シークレットダイスの場合は True';
+
     constructor(
         @inject(Symbols.UseCase.RollDice)
         private readonly rollDiceUseCase: RollDiceUseCase
     ) {}
-
     readonly execute = async (
         interaction: CommandInteraction<CacheType>
     ): Promise<void> => {
@@ -35,9 +37,28 @@ export class DiceCommand implements ISlashCommand {
                     DiceCommand.AMOUNT_LABEL, true
                 )
             });
-            await interaction.reply(result);
+            const secret = interaction.options.getBoolean(
+                DiceCommand.SECRET_LABEL, false
+            );
+            if (secret) {
+                interaction.channel?.send([
+                    `**${interaction.user.username}** さんは `,
+                    `**${result.surface}**のシークレットダイスを `,
+                    `**${result.amount}** 振りました\n`,
+                    'この結果は本人にのみ表示されています'
+                ].join(''));
+                return interaction.reply({
+                    content: result.all,
+                    ephemeral: true
+                });
+            }
+            return interaction.reply([
+                `**${result.surface}**のダイスを `,
+                `**${result.amount}** 振りました\n`,
+                `${result.all}`
+            ].join(''));
         } catch (err) {
-            await interaction.reply({
+            interaction.reply({
                 content: 'ダイスコマンドの実行に失敗しました',
                 ephemeral: true
             });
@@ -65,6 +86,11 @@ export class DiceCommand implements ISlashCommand {
                                 .setMinValue(NumberOfSurface.MIN)
                                 .setMaxValue(NumberOfSurface.MAX)
                                 .setRequired(true)
+               })
+               .addBooleanOption((option) => {
+                   return option.setName(DiceCommand.SECRET_LABEL)
+                                .setDescription(DiceCommand.SECRET_DESCRIPTION)
+                                .setRequired(false)
                })
                .toJSON();
     }
