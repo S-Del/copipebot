@@ -11,6 +11,7 @@
 
 
 ## `/dice`
+![image](/uploads/f4b9e37e564eaf1408ce9cb7988ba2a1/image.png)  
 指定した面数と回 (個) 数のダイスを振った結果をリプライする  
 `/dice amount:1-100 surface:2-100`
 ### オプション
