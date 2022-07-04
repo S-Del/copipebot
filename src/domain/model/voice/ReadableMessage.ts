@@ -1,5 +1,8 @@
-import { IValueObject } from '../IValueObject';
+import { IValueObject } from '../';
 
+/**
+ * 音声合成によって読み上げ可能なメッセージ文字列を格納した値オブジェクト
+ */
 export class ReadableMessage implements IValueObject<string> {
     static readonly MAX_LENGTH = 200;
 

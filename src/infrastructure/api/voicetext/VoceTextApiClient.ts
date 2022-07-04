@@ -1,21 +1,15 @@
-import axios, { AxiosRequestConfig } from 'axios';
 import { inject, injectable } from 'inversify';
+import axios, { AxiosRequestConfig } from 'axios';
 import { Symbols } from '../../../config/';
-import {
-    IVoiceTextApiClient, VoiceTextPostParameter
-} from '../../../domain/model/api/voicetext/';
+import { IVoiceTextApiClient, VoiceTextPostParameter } from '../../../domain/model/api/voicetext/';
 
 @injectable()
 export class VoiceTextApiClient implements IVoiceTextApiClient {
     static readonly URL = 'https://api.voicetext.jp/v1/tts';
 
-    constructor(
-        @inject(Symbols.VoiceText.ApiKey) private readonly apiKey: string
-    ) {}
+    constructor(@inject(Symbols.VoiceText.ApiKey) private readonly apiKey: string) {}
 
-    readonly fetch = async (
-        params: VoiceTextPostParameter
-    ): Promise<Buffer> => {
+    readonly fetch = async (params: VoiceTextPostParameter): Promise<Buffer> => {
         const config: AxiosRequestConfig<VoiceTextPostParameter> = {
             url: VoiceTextApiClient.URL,
             method: 'POST',

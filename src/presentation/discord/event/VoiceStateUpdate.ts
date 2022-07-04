@@ -17,9 +17,7 @@ export class VoiceStateUpdate implements IClientEvent {
         private readonly leaveChannelUseCase: LeaveChannelUseCase
     ) {}
 
-    readonly execute = (
-        oldState: VoiceState, _: VoiceState
-    ): Awaitable<void> => {
+    readonly execute = (oldState: VoiceState, _: VoiceState): Awaitable<void> => {
         const channelId = this.connectingChannelMap.get(oldState.guild.id);
         if (!channelId) return;
         if (oldState?.channel?.id !== channelId) return;

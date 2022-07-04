@@ -10,16 +10,13 @@ export class InteractionCreate implements IClientEvent {
     static readonly IS_ONCE = false;
 
     constructor(
-        @multiInject(Symbols.Discord.SlashCommands)
-        private readonly commands: ISlashCommand[]
+        @multiInject(Symbols.Discord.SlashCommands) private readonly commands: ISlashCommand[]
     ) {}
 
     readonly execute = async (interaction: Interaction): Promise<void> => {
         if (!interaction || !interaction.isCommand()) return;
 
-        const command = this.commands.find((command) => {
-            return command.name() === interaction.commandName;
-        });
+        const command = this.commands.find(command => command.name() === interaction.commandName);
         if (!command) return;
 
         await command.execute(interaction);

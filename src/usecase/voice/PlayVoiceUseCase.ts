@@ -2,7 +2,7 @@ import { inject, injectable } from 'inversify';
 import { createAudioResource, getVoiceConnection } from '@discordjs/voice';
 import { Readable } from 'stream';
 import { Symbols } from '../../config/';
-import { ReadableMessage, ReadableName } from '../../domain/model/message';
+import { ReadableMessage, ReadableName } from '../../domain/model/voice/';
 import { VoiceTextApiClient } from '../../infrastructure/api/voicetext/';
 import { PlayVoiceCommand } from './';
 import { GuildAudioPlayerMap } from './map/';
