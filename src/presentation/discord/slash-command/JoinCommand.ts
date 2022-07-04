@@ -18,7 +18,7 @@ export class JoinCommand implements ISlashCommand {
 
     readonly execute = (interaction: CommandInteraction<CacheType>): Awaitable<void> => {
         if (!interaction.guild) return;
-        if (!(interaction.member instanceof GuildMember)) return;
+        if ( !(interaction.member instanceof GuildMember) ) return;
         if (!interaction.member.voice.channel) {
             return interaction.reply({
                 content: [
