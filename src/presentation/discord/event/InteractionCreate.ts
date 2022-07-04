@@ -1,5 +1,5 @@
 import { injectable, multiInject } from 'inversify';
-import { ClientEvents, Interaction } from 'discord.js';
+import { ClientEvents, GuildChannel, Interaction } from 'discord.js';
 import { Symbols } from '../../../config/';
 import { ISlashCommand } from '../slash-command/';
 import { IClientEvent } from './';
@@ -20,6 +20,17 @@ export class InteractionCreate implements IClientEvent {
         if (!command) return;
 
         await command.execute(interaction);
+
+        const userName = interaction.user.username;
+        const userId = interaction.user.id;
+        if ( !(interaction.channel instanceof GuildChannel) ) {
+            console.log(`${userName}(${userId}) execute /${command.name()}`);
+            return;
+        }
+
+        const guild = interaction.channel.guild.name;
+        const channel = interaction.channel.name;
+        console.log(`${userName}(${userId})@${guild}:${channel} execute /${command.name()}`);
     }
 
     readonly isOnce = (): boolean => InteractionCreate.IS_ONCE;
