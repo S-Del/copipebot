@@ -21,15 +21,16 @@ export class InteractionCreate implements IClientEvent {
 
         await command.execute(interaction);
 
-        const user = interaction.user.username;
+        const userName = interaction.user.username;
+        const userId = interaction.user.id;
         if ( !(interaction.channel instanceof GuildChannel) ) {
-            console.log(`${user} execute /${command.name()}`);
+            console.log(`${userName}(${userId}) execute /${command.name()}`);
             return;
         }
 
         const guild = interaction.channel.guild.name;
         const channel = interaction.channel.name;
-        console.log(`${user}@${guild}:${channel} execute /${command.name()}`);
+        console.log(`${userName}(${userId})@${guild}:${channel} execute /${command.name()}`);
     }
 
     readonly isOnce = (): boolean => InteractionCreate.IS_ONCE;
