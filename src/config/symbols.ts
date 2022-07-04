@@ -4,7 +4,7 @@ const Discord = {
     Client: Symbol.for('DiscordClient'),
     Bot: Symbol.for('DiscordBot'),
     ClientEvents: Symbol.for('DiscordClientEvents'),
-    SlashCommands: Symbol.for('DiscordSlashCommands'),
+    SlashCommands: Symbol.for('DiscordSlashCommands')
 } as const;
 
 const Infrastructure = {
@@ -19,7 +19,8 @@ const UseCase = {
     RollDice: Symbol.for('RollDiceUseCase'),
     JoinChannel: Symbol.for('JoinChannelUseCase'),
     LeaveChannel: Symbol.for('LeaveChannelUseCase'),
-    PlayVoice: Symbol.for('PlayVoiceUseCase')
+    PlayVoice: Symbol.for('PlayVoiceUseCase'),
+    GetAllCommandNames: Symbol.for('GetAllCommandNamesUseCase')
 } as const;
 
 const VoiceText = {
