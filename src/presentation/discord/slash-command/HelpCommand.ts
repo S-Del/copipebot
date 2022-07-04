@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { RESTPostAPIApplicationCommandsJSONBody } from 'discord-api-types/v9';
-import { CommandInteraction, CacheType, Awaitable } from 'discord.js';
+import { CommandInteraction, CacheType } from 'discord.js';
 import { Symbols } from '../../../config/';
 import { GetAllCommandNameUseCase } from '../../../usecase/help/';
 import { ISlashCommand } from './';
@@ -28,7 +28,8 @@ export class HelpCommand implements ISlashCommand {
         interaction.reply({
             content: [
                 'こぴぺぼっとでは以下のコマンドが利用できます',
-                names.map(name => '- ' + name).join('\n'),
+                names.map(name => `- **${name}**`).join('\n'),
+                '\n',
                 `詳しくは ${HelpCommand.README_URL} をご覧ください`
             ].join('\n'),
             ephemeral: true
