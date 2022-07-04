@@ -1,5 +1,8 @@
-import { IValueObject } from '..';
+import { IValueObject } from '../';
 
+/**
+ * ダイスを振る回 (個) 数を表す値オブジェクト
+ */
 export class RollAmount implements IValueObject<number> {
     static readonly MIN = 1;
     static readonly MAX = 100;

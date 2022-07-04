@@ -1,5 +1,5 @@
-import { getVoiceConnection } from '@discordjs/voice';
 import { inject, injectable } from 'inversify';
+import { getVoiceConnection } from '@discordjs/voice';
 import { Symbols } from '../../config';
 import { LeaveChannelCommand } from './';
 import { ConnectingChannelMap, GuildAudioPlayerMap } from './map/';

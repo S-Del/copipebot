@@ -1,5 +1,8 @@
 import { IValueObject } from '../';
 
+/**
+ * ダイスの面数を表す値オブジェクト
+ */
 export class NumberOfSurface implements IValueObject<number> {
     static readonly MIN = 2;
     static readonly MAX = 100;

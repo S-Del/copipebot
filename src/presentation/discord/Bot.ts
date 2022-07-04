@@ -23,7 +23,5 @@ export class Bot {
         });
     }
 
-    readonly login = async (): Promise<string> => {
-        return await this.client.login(this.token);
-    }
+    readonly login = async (): Promise<string> => await this.client.login(this.token);
 }

@@ -2,7 +2,7 @@ import { inject, injectable } from 'inversify';
 import { ClientEvents, Message } from 'discord.js';
 import { Symbols } from '../../../config/';
 import { PlayVoiceUseCase } from '../../../usecase/voice/';
-import { ConnectingChannelMap } from '../../../usecase/voice/map';
+import { ConnectingChannelMap } from '../../../usecase/voice/map/';
 import { IClientEvent } from './';
 
 @injectable()

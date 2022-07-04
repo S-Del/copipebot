@@ -1,9 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { RESTPostAPIApplicationCommandsJSONBody } from 'discord-api-types/v9';
-import {
-    CommandInteraction, CacheType, Awaitable, GuildMember
-} from 'discord.js';
+import { CommandInteraction, CacheType, Awaitable, GuildMember, Snowflake } from 'discord.js';
 import { container, Symbols } from '../../../config/';
 import { LeaveChannelUseCase } from '../../../usecase/voice/';
 import { ISlashCommand } from './';
@@ -18,39 +16,32 @@ export class LeaveCommand implements ISlashCommand {
         private readonly leaveChannelUseCase: LeaveChannelUseCase
     ) {}
 
-    readonly execute = (
-        interaction: CommandInteraction<CacheType>
-    ): Awaitable<void> => {
+    readonly execute = (interaction: CommandInteraction<CacheType>): Awaitable<void> => {
         if (!interaction.guild) return;
         if (!(interaction.member instanceof GuildMember)) return;
         if (!interaction.member.voice.channel) {
             return interaction.reply({
                 content: [
-                    'あなたはボイスチャンネルに接続していません\n',
-                    'ボットが接続中のボイスチャンネルに接続してから',
-                    'このコマンドを利用してください'
-                ].join(''),
+                    'あなたはボイスチャンネルに接続していません',
+                    'ボットが接続中のボイスチャンネルに接続してからこのコマンドを利用してください'
+                ].join('\n'),
                 ephemeral: true
             });
         }
-        if (!interaction.member.voice.channel.members.has(
-            container.get(Symbols.Discord.ApplicationId)
-        )) {
+        const clientId = container.get<Snowflake>(Symbols.Discord.ApplicationId);
+        if (!interaction.member.voice.channel.members.has(clientId)) {
             return interaction.reply({
                 content: [
-                    'ボットがあなたと同じボイスチャンネルに接続していません\n',
-                    'ボットが接続中のボイスチャンネルに接続してから',
-                    'このコマンドを利用してください'
-                ].join(''),
+                    'ボットがあなたと同じボイスチャンネルに接続していません',
+                    'ボットが接続中のボイスチャンネルに接続してからこのコマンドを利用してください'
+                ].join('\n'),
                 ephemeral: true
             });
         }
 
         this.leaveChannelUseCase.handle({ guildId: interaction.guild.id });
 
-        return interaction.reply({
-            content: `${interaction.member.voice.channel.name} から切断`
-        });
+        return interaction.reply({ content: `${interaction.member.voice.channel.name} から切断` });
     }
 
     readonly name = (): string => LeaveCommand.NAME;

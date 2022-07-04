@@ -9,14 +9,10 @@ import {
 } from '../presentation/discord/slash-command/';
 import { Bot } from '../presentation/discord/';
 import { RollDiceUseCase } from '../usecase/dice/';
-import {
-    JoinChannelUseCase, LeaveChannelUseCase, PlayVoiceUseCase
-} from '../usecase/voice/';
+import { JoinChannelUseCase, LeaveChannelUseCase, PlayVoiceUseCase } from '../usecase/voice/';
 import { IVoiceTextApiClient } from '../domain/model/api/voicetext/';
 import { VoiceTextApiClient } from '../infrastructure/api/voicetext/';
-import {
-    ConnectingChannelMap, GuildAudioPlayerMap
-} from '../usecase/voice/map/';
+import { ConnectingChannelMap, GuildAudioPlayerMap } from '../usecase/voice/map/';
 import { GetAllCommandNameUseCase } from '../usecase/help/';
 import { Symbols } from './';
 
@@ -47,19 +43,16 @@ export const container = ((): Container => {
         })
     );
 
-    container.bind<IVoiceTextApiClient>(
-        Symbols.Infrastructure.VoiceTextApiClient
-    ).to(VoiceTextApiClient)
-     .inSingletonScope();
+    container.bind<IVoiceTextApiClient>(Symbols.Infrastructure.VoiceTextApiClient)
+             .to(VoiceTextApiClient)
+             .inSingletonScope();
 
-    container.bind<GuildAudioPlayerMap>(
-        Symbols.UseCase.Map.GuildAudioPlayerMap
-    ).to(GuildAudioPlayerMap)
-     .inSingletonScope();
-    container.bind<ConnectingChannelMap>(
-        Symbols.UseCase.Map.ConnectingChannelMap
-    ).to(ConnectingChannelMap)
-     .inSingletonScope()
+    container.bind<GuildAudioPlayerMap>(Symbols.UseCase.Map.GuildAudioPlayerMap)
+             .to(GuildAudioPlayerMap)
+             .inSingletonScope();
+    container.bind<ConnectingChannelMap>( Symbols.UseCase.Map.ConnectingChannelMap)
+             .to(ConnectingChannelMap)
+             .inSingletonScope()
 
     container.bind<RollDiceUseCase>(Symbols.UseCase.RollDice)
              .to(RollDiceUseCase)
@@ -73,10 +66,9 @@ export const container = ((): Container => {
     container.bind<PlayVoiceUseCase>(Symbols.UseCase.PlayVoice)
              .to(PlayVoiceUseCase)
              .inSingletonScope();
-    container.bind<GetAllCommandNameUseCase>(
-        Symbols.UseCase.GetAllCommandNames
-    ).to(GetAllCommandNameUseCase)
-     .inSingletonScope();
+    container.bind<GetAllCommandNameUseCase>(Symbols.UseCase.GetAllCommandNames)
+             .to(GetAllCommandNameUseCase)
+             .inSingletonScope();
 
     container.bind<ISlashCommand>(Symbols.Discord.SlashCommands)
              .to(DiceCommand)
@@ -104,7 +96,9 @@ export const container = ((): Container => {
              .to(VoiceStateUpdate)
              .inSingletonScope();
 
-    container.bind<Bot>(Symbols.Discord.Bot).to(Bot).inSingletonScope();
+    container.bind<Bot>(Symbols.Discord.Bot)
+             .to(Bot)
+             .inSingletonScope();
 
     return container;
 })();
