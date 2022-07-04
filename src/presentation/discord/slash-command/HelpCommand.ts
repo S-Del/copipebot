@@ -21,9 +21,7 @@ export class HelpCommand implements ISlashCommand {
         private readonly getAllCommandNamesUseCase: GetAllCommandNameUseCase
     ) {}
 
-    readonly execute = async (
-        interaction: CommandInteraction<CacheType>
-    ): Promise<void> => {
+    readonly execute = async (interaction: CommandInteraction<CacheType>): Promise<void> => {
         const names = await this.getAllCommandNamesUseCase.handle();
         interaction.reply({
             content: [
@@ -39,9 +37,8 @@ export class HelpCommand implements ISlashCommand {
     readonly name = (): string => HelpCommand.NAME;
 
     readonly toJSON = (): RESTPostAPIApplicationCommandsJSONBody => {
-        return new SlashCommandBuilder()
-               .setName(HelpCommand.NAME)
-               .setDescription(HelpCommand.DESCRIPTION)
-               .toJSON();
+        return new SlashCommandBuilder().setName(HelpCommand.NAME)
+                                        .setDescription(HelpCommand.DESCRIPTION)
+                                        .toJSON();
     }
 }

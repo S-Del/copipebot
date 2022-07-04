@@ -1,5 +1,8 @@
 import { IValueObject } from '../';
 
+/**
+ * 音声合成によって読み上げ可能なユーザー名を格納した値オブジェクト
+ */
 export class ReadableName implements IValueObject<string> {
     static readonly MIN_LENGTH = 1;
     static readonly MAX_LENGTH = 15;

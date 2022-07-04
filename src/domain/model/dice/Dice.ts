@@ -1,16 +1,15 @@
 import { randomInt } from 'mathjs';
 import { NumberOfSurface, RollAmount, RollResult } from './';
 
+/**
+ * 指定された面数を持つダイス
+ */
 export class Dice {
-    private readonly surface: NumberOfSurface;
-
-    constructor(surface: NumberOfSurface) {
-        this.surface = surface;
-    }
+    constructor(private readonly surface: NumberOfSurface) {}
 
     readonly roll = (count: RollAmount): RollResult => {
-        return new RollResult(...
-            new Array<number>(count.valueOf())
+        return new RollResult(
+            ...new Array<number>(count.valueOf())
             .fill(NaN)
             .map((): number => randomInt(1, this.surface.valueOf() + 1))
         );
