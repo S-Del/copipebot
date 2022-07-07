@@ -24,6 +24,8 @@ export class VoiceStateUpdate implements IClientEvent {
         if (oldState.channel.members.size >= 2) return;
 
         this.leaveChannelUseCase.handle({ guildId: oldState.guild.id });
+        const label = `${oldState.channel.name} (${oldState.channel.id})`;
+        console.log(`Empty Voice Channel Leaved: ${label}`);
     }
 
     readonly isOnce = (): boolean => VoiceStateUpdate.IS_ONCE;

@@ -19,7 +19,9 @@ export class LeaveCommand implements ISlashCommand {
     readonly execute = (interaction: CommandInteraction<CacheType>): Awaitable<void> => {
         if (!interaction.guild) return;
         if ( !(interaction.member instanceof GuildMember) ) return;
-        if (!interaction.member.voice.channel) {
+
+        const voiceChannel = interaction.member.voice.channel;
+        if (!voiceChannel) {
             return interaction.reply({
                 content: [
                     'あなたはボイスチャンネルに接続していません',
@@ -29,7 +31,7 @@ export class LeaveCommand implements ISlashCommand {
             });
         }
         const clientId = container.get<Snowflake>(Symbols.Discord.ApplicationId);
-        if (!interaction.member.voice.channel.members.has(clientId)) {
+        if (!voiceChannel.members.has(clientId)) {
             return interaction.reply({
                 content: [
                     'ボットがあなたと同じボイスチャンネルに接続していません',
@@ -41,7 +43,9 @@ export class LeaveCommand implements ISlashCommand {
 
         this.leaveChannelUseCase.handle({ guildId: interaction.guild.id });
 
-        return interaction.reply({ content: `${interaction.member.voice.channel.name} から切断` });
+        const label = `${voiceChannel.name} (${voiceChannel.id})`;
+        interaction.reply({ content: `${label} から切断` });
+        console.log(`Voice Channel Leaved: ${label}`);
     }
 
     readonly name = (): string => LeaveCommand.NAME;

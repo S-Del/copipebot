@@ -18,7 +18,9 @@ export class JoinCommand implements ISlashCommand {
     readonly execute = (interaction: CommandInteraction<CacheType>): Awaitable<void> => {
         if (!interaction.guild) return;
         if ( !(interaction.member instanceof GuildMember) ) return;
-        if (!interaction.member.voice.channel) {
+
+        const voiceChannel = interaction.member.voice.channel;
+        if (!voiceChannel) {
             return interaction.reply({
                 content: [
                     'あなたはボイスチャンネルに接続していません',
@@ -29,12 +31,14 @@ export class JoinCommand implements ISlashCommand {
         }
 
         this.joinChannelUseCase.handle({
-            channelId: interaction.member.voice.channel.id,
+            channelId: voiceChannel.id,
             guildId: interaction.guild.id,
             adapterCreator: interaction.guild.voiceAdapterCreator
         });
 
-        return interaction.reply({ content: `${interaction.member.voice.channel.name} に接続` });
+        const label = `${voiceChannel.name} (${voiceChannel.id})`;
+        interaction.reply({ content: `${label} に接続` });
+        console.log(`Voice Channel Joined: ${label}`);
     }
 
     readonly name = (): string => JoinCommand.NAME;
