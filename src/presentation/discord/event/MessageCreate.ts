@@ -17,19 +17,19 @@ export class MessageCreate implements IClientEvent {
         private readonly playVoiceUseCase: PlayVoiceUseCase
     ) {}
 
-    static readonly isValid = (message: Message): boolean => {
-        return message.author.bot === false
-               && Boolean(message.content);
-    }
-
     readonly execute = async (message: Message): Promise<void> => {
+        if (message.author.bot) return;
+        if (!message.content) return;
         if (!message.guild) return;
+
         const channelId = this.connectingChannelMap.get(message.guild.id);
         if (!channelId) return;
+
         const channel = await message.guild.channels.fetch(channelId);
         if (!channel || !channel.isVoice()) return;
-        if (!channel.members.has(message.author.id)) return;
-        if (!MessageCreate.isValid(message)) return;
+
+        const author = channel.members.get(message.author.id);
+        if (!author || !author.voice.mute) return;
 
         try {
             await this.playVoiceUseCase.handle({
