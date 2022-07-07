@@ -12,8 +12,7 @@ export class JoinCommand implements ISlashCommand {
     static readonly DESCRIPTION = '音声チャンネルに接続してチャットを読み上げる';
 
     constructor(
-        @inject(Symbols.UseCase.JoinChannel)
-        private readonly joinChannelUseCase: JoinChannelUseCase
+        @inject(Symbols.UseCase.JoinChannel) private readonly joinChannelUseCase: JoinChannelUseCase
     ) {}
 
     readonly execute = (interaction: CommandInteraction<CacheType>): Awaitable<void> => {
@@ -41,9 +40,8 @@ export class JoinCommand implements ISlashCommand {
     readonly name = (): string => JoinCommand.NAME;
 
     readonly toJSON = (): RESTPostAPIApplicationCommandsJSONBody => {
-        return new SlashCommandBuilder()
-               .setName(JoinCommand.NAME)
-               .setDescription(JoinCommand.DESCRIPTION)
-               .toJSON();
+        return new SlashCommandBuilder().setName(JoinCommand.NAME)
+                                        .setDescription(JoinCommand.DESCRIPTION)
+                                        .toJSON();
     }
 }
