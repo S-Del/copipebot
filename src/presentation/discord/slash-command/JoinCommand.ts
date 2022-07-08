@@ -30,6 +30,18 @@ export class JoinCommand implements ISlashCommand {
             });
         }
 
+
+        const label = `${voiceChannel.name} (${voiceChannel.id})`;
+        if (!voiceChannel.joinable) {
+            return interaction.reply({
+                content: [
+                    `${label} には接続できません`,
+                    'プライベートチャンネルであれば権限等を再確認してください'
+                ].join('\n'),
+                ephemeral: true
+            });
+        }
+
         this.joinChannelUseCase.handle({
             channelId: voiceChannel.id,
             guildId: interaction.guild.id,
