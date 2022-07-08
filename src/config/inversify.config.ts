@@ -47,10 +47,10 @@ export const container = ((): Container => {
              .to(VoiceTextApiClient)
              .inSingletonScope();
 
+    container.bind<ConnectingChannelMap>(Symbols.UseCase.Map.ConnectingChannelMap)
     container.bind<GuildAudioPlayerMap>(Symbols.UseCase.Map.GuildAudioPlayerMap)
              .to(GuildAudioPlayerMap)
              .inSingletonScope();
-    container.bind<ConnectingChannelMap>( Symbols.UseCase.Map.ConnectingChannelMap)
              .to(ConnectingChannelMap)
              .inSingletonScope()
 
