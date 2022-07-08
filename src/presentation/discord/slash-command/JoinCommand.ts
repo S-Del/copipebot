@@ -13,15 +13,14 @@ export class JoinCommand implements ISlashCommand {
     static readonly DESCRIPTION = '音声チャンネルに接続してチャットを読み上げる';
 
     constructor(
-        @inject(Symbols.UseCase.JoinChannel) private readonly joinChannelUseCase: JoinChannelUseCase
         @inject(Symbols.UseCase.Map.ConnectingChannelMap)
         private readonly connectingChannelMap: ConnectingChannelMap,
+        @inject(Symbols.UseCase.JoinChannel)
+        private readonly joinChannelUseCase: JoinChannelUseCase
     ) {}
 
     readonly execute = (interaction: CommandInteraction<CacheType>): Awaitable<void> => {
-        if (!interaction.guild) return;
         if ( !(interaction.member instanceof GuildMember) ) return;
-
         const voiceChannel = interaction.member.voice.channel;
         if (!voiceChannel) {
             return interaction.reply({
@@ -58,7 +57,6 @@ export class JoinCommand implements ISlashCommand {
             adapterCreator: interaction.guild.voiceAdapterCreator
         });
 
-        const label = `${voiceChannel.name} (${voiceChannel.id})`;
         interaction.reply({ content: `${label} に接続` });
         console.log(`Voice Channel Joined: ${label}`);
     }
