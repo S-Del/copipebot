@@ -1,18 +1,16 @@
-import { injectable } from 'inversify';
-import { Snowflake } from 'discord.js';
-import { REST } from '@discordjs/rest';
-import { RESTGetAPIApplicationCommandsResult, Routes } from 'discord-api-types/v9';
-import { container, Symbols } from '../../config/';
+import { inject, injectable } from 'inversify';
+import { Symbols } from '../../config/';
+import { IApplicationCommandRepository } from '../../domain/model/api/discord/';
 
 @injectable()
 export class GetAllCommandNameUseCase {
-    readonly handle = async (): Promise<string[]> => {
-        const id = container.get<Snowflake>(Symbols.Discord.ApplicationId);
-        const token = container.get<string>(Symbols.Discord.Token);
-        const route = Routes.applicationCommands(id);
-        const rest = new REST({ version: '9' }).setToken(token);
-        const resp = await rest.get(route) as RESTGetAPIApplicationCommandsResult;
+    constructor(
+        @inject(Symbols.Infrastructure.ApplicationCommandRepository)
+        private readonly applicationCommandRepository: IApplicationCommandRepository
+    ) {}
 
-        return resp.map(command => command.name);
+    readonly handle = async (): Promise<string[]> => {
+        const commands = await this.applicationCommandRepository.get();
+        return commands.map(command => command.name);
     }
 }

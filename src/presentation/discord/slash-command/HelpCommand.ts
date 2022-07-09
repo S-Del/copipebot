@@ -27,7 +27,6 @@ export class HelpCommand implements ISlashCommand {
             content: [
                 'こぴぺぼっとでは以下のコマンドが利用できます',
                 names.map(name => `- **${name}**`).join('\n'),
-                '\n',
                 `詳しくは ${HelpCommand.README_URL} をご覧ください`
             ].join('\n'),
             ephemeral: true
