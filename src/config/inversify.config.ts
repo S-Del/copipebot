@@ -1,6 +1,9 @@
 import 'reflect-metadata';
 import { Container } from 'inversify';
 import { Client, Intents, Snowflake } from 'discord.js';
+import { REST } from '@discordjs/rest';
+import { IApplicationCommandRepository } from '../domain/model/api/discord/';
+import { IVoiceTextApiClient } from '../domain/model/api/voicetext/';
 import {
     IClientEvent, InteractionCreate, MessageCreate, Ready, VoiceStateUpdate
 } from '../presentation/discord/event/';
@@ -10,7 +13,7 @@ import {
 import { Bot } from '../presentation/discord/';
 import { RollDiceUseCase } from '../usecase/dice/';
 import { JoinChannelUseCase, LeaveChannelUseCase, PlayVoiceUseCase } from '../usecase/voice/';
-import { IVoiceTextApiClient } from '../domain/model/api/voicetext/';
+import { ApplicationCommandRepository } from '../infrastructure/api/discord/';
 import { VoiceTextApiClient } from '../infrastructure/api/voicetext/';
 import { ConnectingChannelMap, GuildAudioPlayerMap } from '../usecase/voice/map/';
 import { GetAllCommandNameUseCase } from '../usecase/help/';
@@ -22,15 +25,19 @@ export const container = ((): Container => {
                                               : process.env.TEST_BOT_TOKEN;
     const discordAppId = env === 'production' ? process.env.COPIPE_BOT_APP_ID
                                               : process.env.TEST_BOT_APP_ID;
+    const voicetextKey = process.env.VOICETEXT_API_KEY;
+    if (!discordToken || !discordAppId || !voicetextKey) {
+        throw new Error('環境変数から必要情報が読み取れませんでした');
+    }
 
     const container = new Container();
 
-    container.bind<string | undefined>(Symbols.Discord.Token)
+    container.bind<string>(Symbols.Discord.Token)
              .toConstantValue(discordToken);
-    container.bind<Snowflake | undefined>(Symbols.Discord.ApplicationId)
+    container.bind<Snowflake>(Symbols.Discord.ApplicationId)
              .toConstantValue(discordAppId);
-    container.bind<string | undefined>(Symbols.VoiceText.ApiKey)
-             .toConstantValue(process.env.VOICETEXT_API_KEY);
+    container.bind<string>(Symbols.VoiceText.ApiKey)
+             .toConstantValue(voicetextKey);
 
     container.bind<Client>(Symbols.Discord.Client).toConstantValue(
         new Client({
@@ -43,6 +50,13 @@ export const container = ((): Container => {
         })
     );
 
+    container.bind<REST>(Symbols.Discord.Rest)
+             .toConstantValue(new REST({ version: '9'}).setToken(discordToken));
+
+    container.bind<IApplicationCommandRepository>(
+        Symbols.Infrastructure.ApplicationCommandRepository
+    ).to(ApplicationCommandRepository)
+     .inSingletonScope();
     container.bind<IVoiceTextApiClient>(Symbols.Infrastructure.VoiceTextApiClient)
              .to(VoiceTextApiClient)
              .inSingletonScope();

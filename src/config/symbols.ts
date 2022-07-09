@@ -4,10 +4,12 @@ const Discord = {
     Client: Symbol.for('DiscordClient'),
     Bot: Symbol.for('DiscordBot'),
     ClientEvents: Symbol.for('DiscordClientEvents'),
-    SlashCommands: Symbol.for('DiscordSlashCommands')
+    SlashCommands: Symbol.for('DiscordSlashCommands'),
+    Rest: Symbol.for('DiscordRest')
 } as const;
 
 const Infrastructure = {
+    ApplicationCommandRepository: Symbol.for('ApplicationCommandRepository'),
     VoiceTextApiClient: Symbol.for('VoiceTextApiClient')
 } as const;
 
