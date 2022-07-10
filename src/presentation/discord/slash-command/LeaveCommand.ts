@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { RESTPostAPIApplicationCommandsJSONBody } from 'discord-api-types/v9';
+import { RESTPostAPIApplicationCommandsJSONBody } from 'discord-api-types/v10';
 import { CommandInteraction, CacheType, Awaitable, GuildMember, Snowflake } from 'discord.js';
 import { container, Symbols } from '../../../config/';
 import { LeaveChannelUseCase } from '../../../usecase/voice/';

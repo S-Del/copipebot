@@ -51,7 +51,7 @@ export const container = ((): Container => {
     );
 
     container.bind<REST>(Symbols.Discord.Rest)
-             .toConstantValue(new REST({ version: '9'}).setToken(discordToken));
+             .toConstantValue(new REST({ version: '10' }).setToken(discordToken));
 
     container.bind<IApplicationCommandRepository>(
         Symbols.Infrastructure.ApplicationCommandRepository
