@@ -1,4 +1,4 @@
-import { RESTPostAPIApplicationCommandsJSONBody } from 'discord-api-types/v9';
+import { RESTPostAPIApplicationCommandsJSONBody } from 'discord-api-types/v10';
 import { Awaitable, CommandInteraction } from 'discord.js';
 
 export interface ISlashCommand {
