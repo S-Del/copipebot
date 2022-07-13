@@ -81,7 +81,7 @@
 
 
 ## 脚注
-- [^グローバルコマンド]: ギルド (サーバー) に関係無くアプリケーションで使用できるコマンド。
-    - 詳しくは [公式ドキュメント](
-        https://discord.com/developers/docs/interactions/application-commands#making-a-global-command
-    ) を参照
+[^グローバルコマンド]: ギルド (サーバー) に関係無くアプリケーションで使用できるコマンド。
+詳しくは [公式ドキュメント](
+    https://discord.com/developers/docs/interactions/application-commands#making-a-global-command
+) を参照
