@@ -23,12 +23,12 @@ export const container = ((): Container => {
     const env = process.env.NODE_ENV;
     const discordToken = env === 'production' ? process.env.COPIPE_BOT_TOKEN
                                               : process.env.TEST_BOT_TOKEN;
+    if (!discordToken) throw new Error('環境変数にボットのトークンが未定義でした');
     const discordAppId = env === 'production' ? process.env.COPIPE_BOT_APP_ID
                                               : process.env.TEST_BOT_APP_ID;
+    if (!discordAppId) throw new Error('環境変数にボットの ID が未定義でした');
     const voicetextKey = process.env.VOICETEXT_API_KEY;
-    if (!discordToken || !discordAppId || !voicetextKey) {
-        throw new Error('環境変数から必要情報が読み取れませんでした');
-    }
+    if (!voicetextKey) throw new Error('環境変数に VoiceText のトークンが未定義でした');
 
     const container = new Container();
 
@@ -51,7 +51,7 @@ export const container = ((): Container => {
     );
 
     container.bind<REST>(Symbols.Discord.Rest)
-             .toConstantValue(new REST({ version: '9'}).setToken(discordToken));
+             .toConstantValue(new REST({ version: '10' }).setToken(discordToken));
 
     container.bind<IApplicationCommandRepository>(
         Symbols.Infrastructure.ApplicationCommandRepository

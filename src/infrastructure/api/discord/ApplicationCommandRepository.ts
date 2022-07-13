@@ -5,7 +5,7 @@ import {
     APIApplicationCommand,
     RESTPostAPIApplicationCommandsJSONBody,
     Routes
-} from 'discord-api-types/v9';
+} from 'discord-api-types/v10';
 import { IApplicationCommandRepository } from '../../../domain/model/api/discord/';
 import { Symbols } from '../../../config/';
 
