@@ -75,13 +75,13 @@
         https://gitlab.com/S-Del_discordbot/copipebot/-/blob/develop/package.json
     ) 内の `dependencies` と `devDependencies` を参照
 1. `$ npm run register` にてボットにスラッシュコマンドを登録
-    - スラッシュコマンドは [^グローバルコマンド] として登録される
+    - スラッシュコマンドはグローバルコマンド[^1]として登録される
     - このグローバルコマンドの登録は 1 度行えば良い
 1. `$ npm start` にてボット実行
 
 
 ## 脚注
-[^グローバルコマンド]: ギルド (サーバー) に関係無くアプリケーションで使用できるコマンド。
+[^1]: ギルド (サーバー) に関係無くアプリケーションで使用できるコマンド。
 詳しくは [公式ドキュメント](
     https://discord.com/developers/docs/interactions/application-commands#making-a-global-command
 ) を参照
