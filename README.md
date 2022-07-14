@@ -10,10 +10,21 @@
 
 
 ## スラッシュコマンド一覧
+- `/emoji`
 - `/dice`
 - `/join`
 - `/leave`
 - `/help`
+### `/emoji`
+入力された文字列を絵文字に変換する
+#### フォーマット
+/emoji message:<*文字列*>
+#### オプション
+- message (必須): 絵文字に変換するメッセージ
+    - 以下の文字を絵文字に変換できる
+        - A から Z までのアルファベット
+        - 0 から 9 までのアルファベット
+        - 記号 (!, ?, #, *) と空白文字
 ### `/dice`
 指定した面数と回 (個) 数のダイスを振った結果を表示する  
 ![image](/uploads/f4b9e37e564eaf1408ce9cb7988ba2a1/image.png)
@@ -75,13 +86,13 @@
         https://gitlab.com/S-Del_discordbot/copipebot/-/blob/develop/package.json
     ) 内の `dependencies` と `devDependencies` を参照
 1. `$ npm run register` にてボットにスラッシュコマンドを登録
-    - スラッシュコマンドは [^グローバルコマンド] として登録される
+    - スラッシュコマンドはグローバルコマンド[^1]として登録される
     - このグローバルコマンドの登録は 1 度行えば良い
 1. `$ npm start` にてボット実行
 
 
 ## 脚注
-- [^グローバルコマンド]: ギルド (サーバー) に関係無くアプリケーションで使用できるコマンド。
-    - 詳しくは [公式ドキュメント](
-        https://discord.com/developers/docs/interactions/application-commands#making-a-global-command
-    ) を参照
+[^1]: ギルド (サーバー) に関係無くアプリケーションで使用できるコマンド。
+詳しくは [公式ドキュメント](
+    https://discord.com/developers/docs/interactions/application-commands#making-a-global-command
+) を参照
