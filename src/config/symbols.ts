@@ -18,6 +18,7 @@ const UseCase = {
         GuildAudioPlayerMap: Symbol.for('GuildAudioPlayerMap'),
         ConnectingChannelMap: Symbol.for('ConnectingChannelMap')
     },
+    ConvertToEmoji: Symbol.for('ComvertToEmojiUseCase'),
     RollDice: Symbol.for('RollDiceUseCase'),
     JoinChannel: Symbol.for('JoinChannelUseCase'),
     LeaveChannel: Symbol.for('LeaveChannelUseCase'),
