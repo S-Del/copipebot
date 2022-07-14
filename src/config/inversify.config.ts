@@ -8,7 +8,7 @@ import {
     IClientEvent, InteractionCreate, MessageCreate, Ready, VoiceStateUpdate
 } from '../presentation/discord/event/';
 import {
-    DiceCommand, HelpCommand, ISlashCommand, JoinCommand, LeaveCommand
+    DiceCommand, EmojiCommand, HelpCommand, ISlashCommand, JoinCommand, LeaveCommand
 } from '../presentation/discord/slash-command/';
 import { Bot } from '../presentation/discord/';
 import { RollDiceUseCase } from '../usecase/dice/';
@@ -18,6 +18,7 @@ import { VoiceTextApiClient } from '../infrastructure/api/voicetext/';
 import { ConnectingChannelMap, GuildAudioPlayerMap } from '../usecase/voice/map/';
 import { GetAllCommandNameUseCase } from '../usecase/help/';
 import { Symbols } from './';
+import { ConvertToEmojiUseCase } from '../usecase/emoji';
 
 export const container = ((): Container => {
     const env = process.env.NODE_ENV;
@@ -67,6 +68,9 @@ export const container = ((): Container => {
     container.bind<GuildAudioPlayerMap>(Symbols.UseCase.Map.GuildAudioPlayerMap)
              .to(GuildAudioPlayerMap)
              .inSingletonScope();
+    container.bind<ConvertToEmojiUseCase>(Symbols.UseCase.ConvertToEmoji)
+             .to(ConvertToEmojiUseCase)
+             .inSingletonScope();
     container.bind<RollDiceUseCase>(Symbols.UseCase.RollDice)
              .to(RollDiceUseCase)
              .inSingletonScope();
@@ -85,6 +89,9 @@ export const container = ((): Container => {
 
     container.bind<ISlashCommand>(Symbols.Discord.SlashCommands)
              .to(DiceCommand)
+             .inSingletonScope();
+    container.bind<ISlashCommand>(Symbols.Discord.SlashCommands)
+             .to(EmojiCommand)
              .inSingletonScope();
     container.bind<ISlashCommand>(Symbols.Discord.SlashCommands)
              .to(JoinCommand)
