@@ -37,6 +37,7 @@ export class MessageCreate implements IClientEvent {
                 authorName: message.author.username,
                 message: message.content,
             });
+            console.log(`Read Message: ${message.content}`);
         } catch (err) {
             message.reply({ content: '読み上げられないメッセージでした' });
         }
