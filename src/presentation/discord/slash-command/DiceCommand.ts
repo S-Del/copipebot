@@ -27,11 +27,10 @@ export class DiceCommand implements ISlashCommand {
 
     readonly execute = async (interaction: CommandInteraction<CacheType>): Promise<void> => {
         try {
-            const result = this.rollDiceUseCase.handle({
-                surface: interaction.options.getInteger(DiceCommand.SURFACE_LABEL, true),
-                amount: interaction.options.getInteger(DiceCommand.AMOUNT_LABEL, true)
-            });
+            const surface = interaction.options.getInteger(DiceCommand.SURFACE_LABEL, true);
+            const amount = interaction.options.getInteger(DiceCommand.AMOUNT_LABEL, true);
             const secret = interaction.options.getBoolean(DiceCommand.SECRET_LABEL, false) || false;
+            const resultMessage = this.rollDiceUseCase.handle({ surface, amount });
             interaction.reply({ content: resultMessage, ephemeral: secret });
 
             if (secret) {
