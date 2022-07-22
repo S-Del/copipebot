@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { RESTPostAPIApplicationCommandsJSONBody } from 'discord-api-types/v10';
-import { CommandInteraction, CacheType } from 'discord.js';
+import { ChatInputCommandInteraction } from 'discord.js';
 import { Symbols } from '../../../config/';
 import { NumberOfSurface, RollAmount } from '../../../domain/model/dice/';
 import { RollDiceUseCase } from '../../../usecase/dice/';
@@ -25,28 +25,21 @@ export class DiceCommand implements ISlashCommand {
         @inject(Symbols.UseCase.RollDice) private readonly rollDiceUseCase: RollDiceUseCase
     ) {}
 
-    readonly execute = async (interaction: CommandInteraction<CacheType>): Promise<void> => {
+    readonly execute = async (interaction: ChatInputCommandInteraction): Promise<void> => {
         try {
-            const result = this.rollDiceUseCase.handle({
-                surface: interaction.options.getInteger(DiceCommand.SURFACE_LABEL, true),
-                amount: interaction.options.getInteger(DiceCommand.AMOUNT_LABEL, true)
-            });
+            const surface = interaction.options.getInteger(DiceCommand.SURFACE_LABEL, true);
+            const amount = interaction.options.getInteger(DiceCommand.AMOUNT_LABEL, true);
+            const secret = interaction.options.getBoolean(DiceCommand.SECRET_LABEL, false) || false;
+            const resultMessage = this.rollDiceUseCase.handle({ surface, amount });
+            interaction.reply({ content: resultMessage, ephemeral: secret });
 
-            const secret = interaction.options.getBoolean(DiceCommand.SECRET_LABEL, false);
+            // シークレットダイスだった場合はチャンネルに通知を行う
             if (secret) {
                 interaction.channel?.send([
-                    `**${interaction.user.username}** さんは `,
-                    `**${result.surface}**のシークレットダイスを `,
-                    `**${result.amount}** 振りました\n`,
-                    'この結果は本人にのみ表示されています'
-                ].join(''));
-                return interaction.reply({ content: result.all, ephemeral: true });
+                    `**${interaction.user.username}** さんはシークレットダイスを振りました`,
+                    '結果は本人にのみ表示されています'
+                ].join('\n'));
             }
-            return interaction.reply([
-                `**${result.surface}**のダイスを `,
-                `**${result.amount}** 振りました\n`,
-                `${result.all}`
-            ].join(''));
         } catch (err) {
             interaction.reply({ content: 'ダイスコマンドの実行に失敗しました', ephemeral: true });
         }
@@ -63,19 +56,19 @@ export class DiceCommand implements ISlashCommand {
                                 .setDescription(DiceCommand.AMOUNT_DESCRIPTION)
                                 .setMinValue(RollAmount.MIN)
                                 .setMaxValue(RollAmount.MAX)
-                                .setRequired(true)
+                                .setRequired(true);
                })
                .addIntegerOption(option => {
                    return option.setName(DiceCommand.SURFACE_LABEL)
                                 .setDescription(DiceCommand.SURFACE_DESCRIPTION)
                                 .setMinValue(NumberOfSurface.MIN)
                                 .setMaxValue(NumberOfSurface.MAX)
-                                .setRequired(true)
+                                .setRequired(true);
                })
                .addBooleanOption(option => {
                    return option.setName(DiceCommand.SECRET_LABEL)
                                 .setDescription(DiceCommand.SECRET_DESCRIPTION)
-                                .setRequired(false)
+                                .setRequired(false);
                })
                .toJSON();
     }
