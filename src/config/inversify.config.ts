@@ -42,7 +42,7 @@ export const container = ((): Container => {
 
     container.bind<Client>(Symbols.Discord.Client).toConstantValue(
         new Client({
-            intents:[
+            intents: [
                 GatewayIntentBits.GuildMessages,
                 GatewayIntentBits.Guilds,
                 GatewayIntentBits.GuildVoiceStates,
