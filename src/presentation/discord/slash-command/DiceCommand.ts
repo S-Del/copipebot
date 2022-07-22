@@ -29,7 +29,7 @@ export class DiceCommand implements ISlashCommand {
         try {
             const surface = interaction.options.getInteger(DiceCommand.SURFACE_LABEL, true);
             const amount = interaction.options.getInteger(DiceCommand.AMOUNT_LABEL, true);
-            const secret = interaction.options.getBoolean(DiceCommand.SECRET_LABEL, false) || false;
+            const secret = interaction.options.getBoolean(DiceCommand.SECRET_LABEL, false) ?? false;
             const resultMessage = this.rollDiceUseCase.handle({ surface, amount });
             interaction.reply({ content: resultMessage, ephemeral: secret });
 
