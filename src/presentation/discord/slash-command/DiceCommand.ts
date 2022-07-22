@@ -31,8 +31,8 @@ export class DiceCommand implements ISlashCommand {
                 surface: interaction.options.getInteger(DiceCommand.SURFACE_LABEL, true),
                 amount: interaction.options.getInteger(DiceCommand.AMOUNT_LABEL, true)
             });
+            const secret = interaction.options.getBoolean(DiceCommand.SECRET_LABEL, false) || false;
 
-            const secret = interaction.options.getBoolean(DiceCommand.SECRET_LABEL, false);
             if (secret) {
                 interaction.channel?.send([
                     `**${interaction.user.username}** さんはシークレットダイスを振りました`,
