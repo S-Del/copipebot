@@ -32,6 +32,7 @@ export class DiceCommand implements ISlashCommand {
                 amount: interaction.options.getInteger(DiceCommand.AMOUNT_LABEL, true)
             });
             const secret = interaction.options.getBoolean(DiceCommand.SECRET_LABEL, false) || false;
+            interaction.reply({ content: resultMessage, ephemeral: secret });
 
             if (secret) {
                 interaction.channel?.send([
@@ -39,11 +40,6 @@ export class DiceCommand implements ISlashCommand {
                     '結果は本人にのみ表示されています'
                 ].join('\n'));
             }
-            return interaction.reply([
-                `**${result.surface}**のダイスを `,
-                `**${result.amount}** 振りました\n`,
-                `${result.all}`
-            ].join(''));
         } catch (err) {
             interaction.reply({ content: 'ダイスコマンドの実行に失敗しました', ephemeral: true });
         }
