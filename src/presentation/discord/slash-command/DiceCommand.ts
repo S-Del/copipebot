@@ -35,12 +35,9 @@ export class DiceCommand implements ISlashCommand {
             const secret = interaction.options.getBoolean(DiceCommand.SECRET_LABEL, false);
             if (secret) {
                 interaction.channel?.send([
-                    `**${interaction.user.username}** さんは `,
-                    `**${result.surface}**のシークレットダイスを `,
-                    `**${result.amount}** 振りました\n`,
-                    'この結果は本人にのみ表示されています'
-                ].join(''));
-                return interaction.reply({ content: result.all, ephemeral: true });
+                    `**${interaction.user.username}** さんはシークレットダイスを振りました`,
+                    '結果は本人にのみ表示されています'
+                ].join('\n'));
             }
             return interaction.reply([
                 `**${result.surface}**のダイスを `,
