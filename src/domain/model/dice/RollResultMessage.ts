@@ -1,4 +1,4 @@
-import { NumberOfSurface, RollAmount, RollResult } from './';
+import { NumberOfSurface, RollAmount, RollResults } from './';
 
 /**
  * ダイスロールの結果をまとめた文字列を取得するクラス
@@ -7,7 +7,7 @@ export class RollResultMessage {
     constructor(
         private readonly amount: RollAmount,
         private readonly surface: NumberOfSurface,
-        private readonly results: RollResult
+        private readonly results: RollResults
     ) {}
 
     readonly toString = (): string => {
