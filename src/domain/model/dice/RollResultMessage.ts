@@ -1,4 +1,4 @@
-import { NumberOfSurface, RollAmount, RollResult } from '.';
+import { NumberOfSurface, RollAmount, RollResult } from './';
 
 /**
  * ダイスロールの結果をまとめた文字列を取得するクラス
