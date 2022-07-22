@@ -3,9 +3,9 @@ import { RESTPostAPIApplicationCommandsJSONBody } from 'discord-api-types/v10';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { ChatInputCommandInteraction } from 'discord.js';
 import { Symbols } from '../../../config/';
+import { EmojiMessage } from '../../../domain/model/emoji/';
 import { ConvertToEmojiUseCase } from '../../../usecase/emoji/';
 import { ISlashCommand } from './';
-import { EmojiMessage } from '../../../domain/model/emoji';
 
 @injectable()
 export class EmojiCommand implements ISlashCommand {
