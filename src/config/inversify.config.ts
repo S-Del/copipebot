@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { Container } from 'inversify';
-import { Client, Intents, Snowflake } from 'discord.js';
+import { Client, GatewayIntentBits, Snowflake } from 'discord.js';
 import { REST } from '@discordjs/rest';
 import { IApplicationCommandRepository } from '../domain/model/api/discord/';
 import { IVoiceTextApiClient } from '../domain/model/api/voicetext/';
@@ -43,10 +43,10 @@ export const container = ((): Container => {
     container.bind<Client>(Symbols.Discord.Client).toConstantValue(
         new Client({
             intents:[
-                Intents.FLAGS.GUILD_MEMBERS,
-                Intents.FLAGS.GUILD_MESSAGES,
-                Intents.FLAGS.GUILDS,
-                Intents.FLAGS.GUILD_VOICE_STATES
+                GatewayIntentBits.GuildMessages,
+                GatewayIntentBits.Guilds,
+                GatewayIntentBits.GuildVoiceStates,
+                GatewayIntentBits.MessageContent
             ]
         })
     );

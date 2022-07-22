@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { RESTPostAPIApplicationCommandsJSONBody } from 'discord-api-types/v10';
-import { CommandInteraction, CacheType } from 'discord.js';
+import { ChatInputCommandInteraction } from 'discord.js';
 import { Symbols } from '../../../config/';
 import { GetAllCommandNameUseCase } from '../../../usecase/help/';
 import { ISlashCommand } from './';
@@ -21,7 +21,7 @@ export class HelpCommand implements ISlashCommand {
         private readonly getAllCommandNamesUseCase: GetAllCommandNameUseCase
     ) {}
 
-    readonly execute = async (interaction: CommandInteraction<CacheType>): Promise<void> => {
+    readonly execute = async (interaction: ChatInputCommandInteraction): Promise<void> => {
         const names = await this.getAllCommandNamesUseCase.handle();
         interaction.reply({
             content: [

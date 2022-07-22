@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { RESTPostAPIApplicationCommandsJSONBody } from 'discord-api-types/v10';
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { CommandInteraction, CacheType, Awaitable } from 'discord.js';
+import { ChatInputCommandInteraction } from 'discord.js';
 import { Symbols } from '../../../config/';
 import { ConvertToEmojiUseCase } from '../../../usecase/emoji/';
 import { ISlashCommand } from './';
@@ -22,7 +22,7 @@ export class EmojiCommand implements ISlashCommand {
         private readonly convertToEmojiUseCase: ConvertToEmojiUseCase
     ) {}
 
-    readonly execute = (interaction: CommandInteraction<CacheType>): Awaitable<void> => {
+    readonly execute = async (interaction: ChatInputCommandInteraction): Promise<void> => {
         try {
             const response = this.convertToEmojiUseCase.handle({
                 target: interaction.options.getString(EmojiCommand.OPTION_LABEL, true)

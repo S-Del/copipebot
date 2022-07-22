@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { RESTPostAPIApplicationCommandsJSONBody } from 'discord-api-types/v10';
-import { CommandInteraction, CacheType } from 'discord.js';
+import { ChatInputCommandInteraction } from 'discord.js';
 import { Symbols } from '../../../config/';
 import { NumberOfSurface, RollAmount } from '../../../domain/model/dice/';
 import { RollDiceUseCase } from '../../../usecase/dice/';
@@ -25,7 +25,7 @@ export class DiceCommand implements ISlashCommand {
         @inject(Symbols.UseCase.RollDice) private readonly rollDiceUseCase: RollDiceUseCase
     ) {}
 
-    readonly execute = async (interaction: CommandInteraction<CacheType>): Promise<void> => {
+    readonly execute = async (interaction: ChatInputCommandInteraction): Promise<void> => {
         try {
             const surface = interaction.options.getInteger(DiceCommand.SURFACE_LABEL, true);
             const amount = interaction.options.getInteger(DiceCommand.AMOUNT_LABEL, true);
