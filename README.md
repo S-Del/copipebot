@@ -16,7 +16,8 @@
 - `/leave`
 - `/help`
 ### `/emoji`
-入力された文字列を絵文字に変換する
+入力された文字列を絵文字に変換する  
+![image](/uploads/74d5ff0eec782cad58bc923b66c5cb67/image.png)
 #### フォーマット
 /emoji message:<*文字列*>
 #### オプション
