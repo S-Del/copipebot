@@ -33,6 +33,7 @@ export class DiceCommand implements ISlashCommand {
             const resultMessage = this.rollDiceUseCase.handle({ surface, amount });
             interaction.reply({ content: resultMessage, ephemeral: secret });
 
+            // シークレットダイスだった場合はチャンネルに通知を行う
             if (secret) {
                 interaction.channel?.send([
                     `**${interaction.user.username}** さんはシークレットダイスを振りました`,
