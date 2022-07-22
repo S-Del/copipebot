@@ -63,19 +63,19 @@ export class DiceCommand implements ISlashCommand {
                                 .setDescription(DiceCommand.AMOUNT_DESCRIPTION)
                                 .setMinValue(RollAmount.MIN)
                                 .setMaxValue(RollAmount.MAX)
-                                .setRequired(true)
+                                .setRequired(true);
                })
                .addIntegerOption(option => {
                    return option.setName(DiceCommand.SURFACE_LABEL)
                                 .setDescription(DiceCommand.SURFACE_DESCRIPTION)
                                 .setMinValue(NumberOfSurface.MIN)
                                 .setMaxValue(NumberOfSurface.MAX)
-                                .setRequired(true)
+                                .setRequired(true);
                })
                .addBooleanOption(option => {
                    return option.setName(DiceCommand.SECRET_LABEL)
                                 .setDescription(DiceCommand.SECRET_DESCRIPTION)
-                                .setRequired(false)
+                                .setRequired(false);
                })
                .toJSON();
     }
