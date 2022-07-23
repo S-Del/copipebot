@@ -2,12 +2,13 @@ import { max, mean, median, min, mode, std, sum } from 'mathjs';
 
 /**
  * 単一又は複数のダイスを振った結果を格納したクラス
+ *
  * Iterable を実装している為イテレーション可能
  */
-export class RollResult implements Iterable<number>{
-    private readonly results: number[];
+export class RollResults implements Iterable<number>{
+    private readonly results: ReadonlyArray<number>;
 
-    constructor(...results: number[]) {
+    constructor(...results: ReadonlyArray<number>) {
         this.results = results;
     }
 

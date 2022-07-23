@@ -1,5 +1,5 @@
 export * from './NumberOfSurface';
 export * from './RollAmount';
-export * from './RollResult';
+export * from './RollResults';
 export * from './Dice';
 export * from './RollResultMessage';
