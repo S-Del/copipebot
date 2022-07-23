@@ -1,5 +1,5 @@
 import { injectable, multiInject } from 'inversify';
-import { ClientEvents, GuildChannel, Interaction } from 'discord.js';
+import { ClientEvents, CommandInteraction, GuildChannel } from 'discord.js';
 import { Symbols } from '../../../config/';
 import { ISlashCommand } from '../slash-command/';
 import { IClientEvent } from './';
@@ -13,8 +13,8 @@ export class InteractionCreate implements IClientEvent {
         @multiInject(Symbols.Discord.SlashCommands) private readonly commands: ISlashCommand[]
     ) {}
 
-    readonly execute = async (interaction: Interaction): Promise<void> => {
-        if (!interaction || !interaction.isCommand()) return;
+    readonly execute = async (interaction: CommandInteraction): Promise<void> => {
+        if (!interaction || !interaction.isChatInputCommand()) return;
 
         const command = this.commands.find(command => command.name() === interaction.commandName);
         if (!command) return;

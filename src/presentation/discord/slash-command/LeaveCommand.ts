@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { RESTPostAPIApplicationCommandsJSONBody } from 'discord-api-types/v10';
-import { CommandInteraction, CacheType, Awaitable, GuildMember, Snowflake } from 'discord.js';
+import { GuildMember, Snowflake, ChatInputCommandInteraction } from 'discord.js';
 import { container, Symbols } from '../../../config/';
 import { LeaveChannelUseCase } from '../../../usecase/voice/';
 import { ISlashCommand } from './';
@@ -16,29 +16,31 @@ export class LeaveCommand implements ISlashCommand {
         private readonly leaveChannelUseCase: LeaveChannelUseCase
     ) {}
 
-    readonly execute = (interaction: CommandInteraction<CacheType>): Awaitable<void> => {
+    readonly execute = async (interaction: ChatInputCommandInteraction): Promise<void> => {
         if (!interaction.guild) return;
         if ( !(interaction.member instanceof GuildMember) ) return;
 
         const voiceChannel = interaction.member.voice.channel;
         if (!voiceChannel) {
-            return interaction.reply({
+            interaction.reply({
                 content: [
                     'あなたはボイスチャンネルに接続していません',
                     'ボットが接続中のボイスチャンネルに接続してからこのコマンドを利用してください'
                 ].join('\n'),
                 ephemeral: true
             });
+            return;
         }
         const clientId = container.get<Snowflake>(Symbols.Discord.ApplicationId);
         if (!voiceChannel.members.has(clientId)) {
-            return interaction.reply({
+            interaction.reply({
                 content: [
                     'ボットがあなたと同じボイスチャンネルに接続していません',
                     'ボットが接続中のボイスチャンネルに接続してからこのコマンドを利用してください'
                 ].join('\n'),
                 ephemeral: true
             });
+            return;
         }
 
         this.leaveChannelUseCase.handle({ guildId: interaction.guild.id });

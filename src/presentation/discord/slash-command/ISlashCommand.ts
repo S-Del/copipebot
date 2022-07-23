@@ -1,11 +1,11 @@
 import { RESTPostAPIApplicationCommandsJSONBody } from 'discord-api-types/v10';
-import { Awaitable, CommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction } from 'discord.js';
 
 export interface ISlashCommand {
     /**
      * スラッシュコマンドが実行された時に行う処理
      */
-    readonly execute: (interaction: CommandInteraction) => Awaitable<void>;
+    readonly execute: (interaction: ChatInputCommandInteraction) => Promise<void>;
 
     /**
      * スラッシュコマンドの名前

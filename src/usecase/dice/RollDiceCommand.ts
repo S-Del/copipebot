@@ -1,5 +1,6 @@
 export interface RollDiceCommand {
-    readonly surface: number;
     readonly amount: number;
-//  readonly correctionValue: number;
+    readonly surface: number;
+    readonly correctionOperator?: string;
+    readonly correctionValue?: number;
 }

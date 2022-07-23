@@ -26,7 +26,7 @@ export class MessageCreate implements IClientEvent {
         if (!channelId) return;
 
         const channel = await message.guild.channels.fetch(channelId);
-        if (!channel || !channel.isVoice()) return;
+        if (!channel || !channel.isVoiceBased()) return;
 
         const author = channel.members.get(message.author.id);
         if (!author || !author.voice.mute) return;
@@ -37,6 +37,7 @@ export class MessageCreate implements IClientEvent {
                 authorName: message.author.username,
                 message: message.content,
             });
+            console.log(`Read Message: ${message.content}`);
         } catch (err) {
             message.reply({ content: '読み上げられないメッセージでした' });
         }

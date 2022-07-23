@@ -1,4 +1,5 @@
 export * from './ISlashCommand';
+export * from './CommandDefinition';
 export * from './DiceCommand';
 export * from './EmojiCommand';
 export * from './JoinCommand';
