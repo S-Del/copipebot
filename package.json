@@ -6,7 +6,7 @@
   "main": "build/main.js",
   "scripts": {
     "start": "node build/main.js",
-    "register": "node build/register-slashcommand.js"
+    "setup": "node build/setup.js"
   },
   "keywords": [
     "Discord",
