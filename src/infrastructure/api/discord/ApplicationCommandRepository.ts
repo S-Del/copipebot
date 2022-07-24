@@ -24,8 +24,11 @@ export class ApplicationCommandRepository implements IApplicationCommandReposito
     }
 
     readonly deleteAll = async (): Promise<void> => {
-        const route = Routes.applicationCommands(this.applicationId);
-        this.rest.delete(route);
+        const commands = await this.getAll();
+        commands.map(command => {
+            const route = Routes.applicationCommand(this.applicationId, command.id);
+            this.rest.delete(route);
+        });
     }
 
     readonly get = async (commandId?: string): Promise<APIApplicationCommand[]> => {
