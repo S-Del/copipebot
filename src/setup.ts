@@ -10,13 +10,12 @@ import { container, Symbols } from './config/';
     try {
         console.log('===== 登録済みのスラッシュコマンドを取得 =====');
         const commands = await repository.get();
+        console.log(`登録済みコマンド数: ${commands.length}`)
         console.log('===== 取得完了 =====');
 
         if (commands.length > 0) {
-            console.log(`登録済みコマンド数: ${commands.length}`)
-            commands.map(command => console.log(`- ${command.name}`));
-
             console.log('===== 登録済みのスラッシュコマンドの削除を開始 =====')
+            commands.map(command => console.log(`- ${command.name}`));
             await repository.delete();
             console.log('===== 削除完了 =====');
         }
