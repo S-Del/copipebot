@@ -93,7 +93,7 @@
     - インストールされるパッケージ一覧は [package.json](
         https://gitlab.com/S-Del_discordbot/copipebot/-/blob/develop/package.json
     ) 内の `dependencies` と `devDependencies` を参照
-1. `$ npm run register` にてボットにスラッシュコマンドを登録
+1. `$ npm run setup` にてスラッシュコマンドを登録
     - スラッシュコマンドはグローバルコマンド[^1]として登録される
     - このグローバルコマンドの登録は 1 度行えば良い
 1. `$ npm start` にてボット実行

@@ -20,12 +20,15 @@ export class ApplicationCommandRepository implements IApplicationCommandReposito
         if (!commandId) return this.deleteAll();
 
         const route = Routes.applicationCommand(this.applicationId, commandId);
-        this.rest.delete(route)
+        await this.rest.delete(route)
     }
 
     readonly deleteAll = async (): Promise<void> => {
-        const route = Routes.applicationCommands(this.applicationId);
-        this.rest.delete(route);
+        const commands = await this.getAll();
+        commands.map(async (command) => {
+            const route = Routes.applicationCommand(this.applicationId, command.id);
+            await this.rest.delete(route);
+        });
     }
 
     readonly get = async (commandId?: string): Promise<APIApplicationCommand[]> => {
@@ -38,13 +41,15 @@ export class ApplicationCommandRepository implements IApplicationCommandReposito
 
     readonly getAll = async (): Promise<APIApplicationCommand[]> => {
         const route = Routes.applicationCommands(this.applicationId);
-        return this.rest.get(route) as Promise<APIApplicationCommand[]>;
+        return await this.rest.get(route) as APIApplicationCommand[];
     }
 
     readonly register = async (
-        ...json: RESTPostAPIApplicationCommandsJSONBody[]
+        ...jsonList: RESTPostAPIApplicationCommandsJSONBody[]
     ): Promise<void> => {
         const route = Routes.applicationCommands(this.applicationId);
-        this.rest.put(route, { body: json });
+        jsonList.map(async (json) => {
+            await this.rest.post(route, { body: json });
+        });
     }
 }
