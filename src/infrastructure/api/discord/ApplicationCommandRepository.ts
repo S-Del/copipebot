@@ -45,7 +45,7 @@ export class ApplicationCommandRepository implements IApplicationCommandReposito
     }
 
     readonly register = async (
-        ...json: RESTPostAPIApplicationCommandsJSONBody[]
+        ...jsonList: RESTPostAPIApplicationCommandsJSONBody[]
     ): Promise<void> => {
         const route = Routes.applicationCommands(this.applicationId);
         this.rest.put(route, { body: json });
