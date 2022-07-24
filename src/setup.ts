@@ -1,6 +1,6 @@
-import { container, Symbols } from './config/';
 import { ISlashCommand } from './presentation/discord/slash-command/';
 import { ApplicationCommandRepository } from './infrastructure/api/discord';
+import { container, Symbols } from './config/';
 
 (async (): Promise<void> => {
     const repository = container.get<ApplicationCommandRepository>(
