@@ -48,6 +48,8 @@ export class ApplicationCommandRepository implements IApplicationCommandReposito
         ...jsonList: RESTPostAPIApplicationCommandsJSONBody[]
     ): Promise<void> => {
         const route = Routes.applicationCommands(this.applicationId);
-        this.rest.put(route, { body: json });
+        jsonList.map(async (json) => {
+            await this.rest.post(route, { body: json });
+        });
     }
 }
