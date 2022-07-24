@@ -6,11 +6,11 @@ import { container, Symbols } from './config/';
     const repository = container.get<IApplicationCommandRepository>(
         Symbols.Infrastructure.ApplicationCommandRepository
     );
-    const jsonList = container.getAll<ISlashCommand>(Symbols.Discord.SlashCommands)
-                              .map(command => command.toJSON());
 
     try {
         console.log('===== スラッシュコマンドの登録を開始 =====');
+        const jsonList = container.getAll<ISlashCommand>(Symbols.Discord.SlashCommands)
+                                  .map(command => command.toJSON());
         jsonList.forEach(json => console.log(`- ${json.name}`));
         await repository.register(...jsonList);
         console.log('===== 登録完了 =====')
