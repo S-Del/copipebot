@@ -28,7 +28,7 @@
 
 ### `/dice`
 指定した面数と回 (個) 数のダイスを振った結果を表示する  
-![image](/uploads/f4b9e37e564eaf1408ce9cb7988ba2a1/image.png)
+![image](/uploads/58278d9c2d83f45cf435ec0d2b1741d9/image.png)
 #### オプション
 - amount (必須): `1` から `100` の数値でダイスを振る回 (個) 数を指定する
 - surface (必須): `2` から `100` の数値でダイスの面数を指定する
