@@ -19,8 +19,6 @@
 ### `/emoji`
 入力された文字列を絵文字に変換する  
 ![image](/uploads/74d5ff0eec782cad58bc923b66c5cb67/image.png)
-#### フォーマット
-/emoji message:<*文字列*>
 #### オプション
 - message (必須): 絵文字に変換するメッセージ
     - 以下の文字を絵文字に変換できる
@@ -30,14 +28,14 @@
 
 ### `/dice`
 指定した面数と回 (個) 数のダイスを振った結果を表示する  
-![image](/uploads/f4b9e37e564eaf1408ce9cb7988ba2a1/image.png)
-#### フォーマット
-/dice amount:\<*回 (個) 数*\> surface:\<*面数*\> \[secret\]:*真偽値*
+![image](/uploads/58278d9c2d83f45cf435ec0d2b1741d9/image.png)
 #### オプション
-- amount (必須): `1` から `100` の数値でダイスを振る回 (個) 数を指定する
-- surface (必須): `2` から `100` の数値でダイスの面数を指定する
-- secret: `True` を指定すると結果はコマンド使用者のみに通知される
+- amount (必須): `1` から `100` の数値でダイスを振る回 (個) 数を指定
+- surface (必須): `2` から `100` の数値でダイスの面数を指定
+- secret: `True` を指定するとロール結果はコマンド使用者にのみ通知される
 (コマンドを使用したこと自体は周知される)
+- correction-operator: 補正に使う演算方法を演算子 `+, -, *, /` で選択
+- correction-value: `1` から `100` の数値で補正に使う値を指定
 
 ### `/join`
 ボイスチャンネルに接続してテキストチャンネルのメッセージを読み上げる
@@ -95,7 +93,7 @@
     - インストールされるパッケージ一覧は [package.json](
         https://gitlab.com/S-Del_discordbot/copipebot/-/blob/develop/package.json
     ) 内の `dependencies` と `devDependencies` を参照
-1. `$ npm run register` にてボットにスラッシュコマンドを登録
+1. `$ npm run setup` にてスラッシュコマンドを登録
     - スラッシュコマンドはグローバルコマンド[^1]として登録される
     - このグローバルコマンドの登録は 1 度行えば良い
 1. `$ npm start` にてボット実行
