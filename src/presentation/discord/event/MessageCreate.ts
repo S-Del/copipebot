@@ -31,13 +31,17 @@ export class MessageCreate implements IClientEvent {
         const author = channel.members.get(message.author.id);
         if (!author || !author.voice.mute) return;
 
+        const authorName = author.nickname
+                           || author.displayName
+                           || message.author.username;
+
         try {
             await this.playVoiceUseCase.handle({
                 guildId: message.guild.id,
-                authorName: message.author.username,
+                authorName,
                 message: message.content,
             });
-            console.log(`Read Message: ${message.content}`);
+            console.log(`Read Message -> ${authorName}: ${message.content}`);
         } catch (err) {
             message.reply({ content: '読み上げられないメッセージでした' });
         }
