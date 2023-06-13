@@ -1,5 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { DiscordGatewayAdapterCreator } from '@discordjs/voice';
 import { RESTPostAPIApplicationCommandsJSONBody } from 'discord-api-types/v10';
 import { GuildMember, ChatInputCommandInteraction } from 'discord.js';
 import { ConnectingChannelMap } from '../../../usecase/voice/map/';
@@ -57,7 +58,7 @@ export class JoinCommand implements ISlashCommand {
         this.joinChannelUseCase.handle({
             channelId: voiceChannel.id,
             guildId: interaction.guild.id,
-            adapterCreator: interaction.guild.voiceAdapterCreator
+            adapterCreator: <DiscordGatewayAdapterCreator>interaction.guild.voiceAdapterCreator
         });
 
         interaction.reply({ content: `${label} に接続` });
