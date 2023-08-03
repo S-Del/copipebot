@@ -3,6 +3,10 @@ import { ISlashCommand } from './presentation/discord/slash-command/';
 import { container, Symbols } from './config/';
 
 (async (): Promise<void> => {
+    const env = process.env.NODE_ENV;
+    if (!env) throw new Error('NODE_ENV 環境変数が未定義');
+    console.log(`${env} 環境のコマンド登録を試行します`);
+
     const repository = container.get<IApplicationCommandRepository>(
         Symbols.Infrastructure.ApplicationCommandRepository
     );
