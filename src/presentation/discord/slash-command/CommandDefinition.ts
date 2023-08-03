@@ -1,3 +1,5 @@
+import { APIApplicationCommandOptionChoice } from 'discord.js';
+
 interface Definition {
     readonly NAME: string;
     readonly NAME_JP?: string;
@@ -7,6 +9,7 @@ interface Definition {
 
 interface OptionDefinition extends Definition {
     readonly REQUIRED: boolean;
+    readonly CHOICES?: readonly APIApplicationCommandOptionChoice<string>[];
 }
 
 export interface CommandDefinition extends Definition {
