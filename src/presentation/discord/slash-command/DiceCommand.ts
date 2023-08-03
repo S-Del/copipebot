@@ -12,31 +12,48 @@ import { ISlashCommand, CommandDefinition } from './';
 export class DiceCommand implements ISlashCommand {
     static readonly DEFINITION: CommandDefinition = {
         NAME: 'dice',
-        DESCRIPTION: '指定した面数と回 (個) 数のサイコロを振る',
+        DESCRIPTION: 'Roll the dice with the specified number of sides and the number of times',
+        DESCRIPTION_JP: '指定した面数と回 (個) 数のサイコロを振る',
         OPTIONS: {
             AMOUNT: {
                 NAME: 'amount',
-                DESCRIPTION: 'ダイスを振る回 (個) 数を入力',
+                NAME_JP: '回数',
+                DESCRIPTION: 'number of dice rolls',
+                DESCRIPTION_JP: '振る回 (個) 数を入力',
                 REQUIRED: true
             },
             SURFACE: {
                 NAME: 'surface',
-                DESCRIPTION: 'ダイスの面数を入力',
+                NAME_JP: '面数',
+                DESCRIPTION: 'number of surface on the dice',
+                DESCRIPTION_JP: '面数を入力',
                 REQUIRED: true
             },
             SECRET: {
                 NAME: 'secret',
-                DESCRIPTION: 'シークレットダイスの場合は True',
+                NAME_JP: 'シークレットダイス',
+                DESCRIPTION: 'True for a secret dice',
+                DESCRIPTION_JP: 'シークレットダイスの場合は True を指定',
                 REQUIRED: false
             },
             CORRECTION_OPERATOR: {
                 NAME: 'correction_operator',
-                DESCRIPTION: '補正の演算方法を選択',
-                REQUIRED: false
+                NAME_JP: '補正値の計算方法',
+                DESCRIPTION: 'operator for correct',
+                DESCRIPTION_JP: '補正値の計算方法を選択',
+                REQUIRED: false,
+                CHOICES: [
+                    { name: '+', value: '+' },
+                    { name: '-', value: '-' },
+                    { name: '*', value: '*' },
+                    { name: '/', value: '/' }
+                ]
             },
             CORRECTION_VALUE: {
                 NAME: 'correction_value',
-                DESCRIPTION: '補正値があれば入力',
+                NAME_JP: '補正値',
+                DESCRIPTION: 'value for correct',
+                DESCRIPTION_JP: '補正値を入力',
                 REQUIRED: false
             }
         }
@@ -88,42 +105,91 @@ export class DiceCommand implements ISlashCommand {
                .setDescription(DiceCommand.DEFINITION.DESCRIPTION)
                .addIntegerOption(option => {
                    return option.setName(DiceCommand.DEFINITION.OPTIONS.AMOUNT.NAME)
+                                .setNameLocalization(
+                                    'ja', DiceCommand.DEFINITION.OPTIONS.AMOUNT.NAME_JP || null
+                                )
                                 .setDescription(DiceCommand.DEFINITION.OPTIONS.AMOUNT.DESCRIPTION)
+                                .setDescriptionLocalization(
+                                    'ja',
+                                    DiceCommand.DEFINITION.OPTIONS.AMOUNT.DESCRIPTION_JP || null
+                                )
                                 .setRequired(DiceCommand.DEFINITION.OPTIONS.AMOUNT.REQUIRED)
                                 .setMinValue(RollAmount.MIN)
                                 .setMaxValue(RollAmount.MAX);
                })
                .addIntegerOption(option => {
                    return option.setName(DiceCommand.DEFINITION.OPTIONS.SURFACE.NAME)
+                                .setNameLocalization(
+                                    'ja', DiceCommand.DEFINITION.OPTIONS.SURFACE.NAME_JP || null
+                                )
                                 .setDescription(DiceCommand.DEFINITION.OPTIONS.SURFACE.DESCRIPTION)
+                                .setDescriptionLocalization(
+                                    'ja',
+                                    DiceCommand.DEFINITION.OPTIONS.SURFACE.DESCRIPTION_JP || null
+                                )
                                 .setRequired(DiceCommand.DEFINITION.OPTIONS.SURFACE.REQUIRED)
                                 .setMinValue(NumberOfSurface.MIN)
                                 .setMaxValue(NumberOfSurface.MAX);
                })
                .addBooleanOption(option => {
                    return option.setName(DiceCommand.DEFINITION.OPTIONS.SECRET.NAME)
+                                .setNameLocalization(
+                                    'ja', DiceCommand.DEFINITION.OPTIONS.SECRET.NAME_JP || null
+                                )
                                 .setDescription(DiceCommand.DEFINITION.OPTIONS.SECRET.DESCRIPTION)
+                                .setDescriptionLocalization(
+                                    'ja',
+                                    DiceCommand.DEFINITION.OPTIONS.SECRET.DESCRIPTION_JP || null
+                                )
                                 .setRequired(DiceCommand.DEFINITION.OPTIONS.SECRET.REQUIRED);
                })
                .addStringOption(option => {
                    return option.setName(DiceCommand.DEFINITION.OPTIONS.CORRECTION_OPERATOR.NAME)
+                                .setNameLocalization(
+                                    'ja',
+                                    DiceCommand.DEFINITION
+                                               .OPTIONS
+                                               .CORRECTION_OPERATOR
+                                               .NAME_JP || null
+                                )
                                 .setDescription(
                                     DiceCommand.DEFINITION.OPTIONS.CORRECTION_OPERATOR.DESCRIPTION
+                                )
+                                .setDescriptionLocalization(
+                                    'ja',
+                                    DiceCommand.DEFINITION
+                                               .OPTIONS
+                                               .CORRECTION_OPERATOR
+                                               .DESCRIPTION_JP || null
                                 )
                                 .setRequired(
                                     DiceCommand.DEFINITION.OPTIONS.CORRECTION_OPERATOR.REQUIRED
                                 )
                                 .addChoices(
-                                    { name: '+', value: '+' },
-                                    { name: '-', value: '-' },
-                                    { name: '*', value: '*' },
-                                    { name: '/', value: '/' }
+                                    ...DiceCommand.DEFINITION.OPTIONS.CORRECTION_OPERATOR.CHOICES
+                                    || [
+                                        { name: '+', value: '+' },
+                                        { name: '-', value: '-' },
+                                        { name: '*', value: '*' },
+                                        { name: '/', value: '/' }
+                                    ]
                                 );
                })
                .addIntegerOption(option => {
                    return option.setName(DiceCommand.DEFINITION.OPTIONS.CORRECTION_VALUE.NAME)
+                                .setNameLocalization(
+                                    'ja',
+                                    DiceCommand.DEFINITION.OPTIONS.CORRECTION_VALUE.NAME_JP || null
+                                )
                                 .setDescription(
                                     DiceCommand.DEFINITION.OPTIONS.CORRECTION_VALUE.DESCRIPTION
+                                )
+                                .setDescriptionLocalization(
+                                    'ja',
+                                    DiceCommand.DEFINITION
+                                               .OPTIONS
+                                               .CORRECTION_VALUE
+                                               .DESCRIPTION_JP || null
                                 )
                                 .setRequired(
                                     DiceCommand.DEFINITION.OPTIONS.CORRECTION_VALUE.REQUIRED
