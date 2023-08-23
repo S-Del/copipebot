@@ -18,7 +18,7 @@
 
 ### `/emoji`
 入力された文字列を絵文字に変換する  
-![image](/uploads/74d5ff0eec782cad58bc923b66c5cb67/image.png)
+![image](https://gitlab.com/s-del_discordbot/copipebot/uploads/74d5ff0eec782cad58bc923b66c5cb67/image.png)
 #### オプション
 - message (必須): 絵文字に変換するメッセージ
     - 以下の文字を絵文字に変換できる
@@ -28,7 +28,7 @@
 
 ### `/dice`
 指定した面数と回 (個) 数のダイスを振った結果を表示する  
-![image](/uploads/58278d9c2d83f45cf435ec0d2b1741d9/image.png)
+![image](https://gitlab.com/s-del_discordbot/copipebot/uploads/58278d9c2d83f45cf435ec0d2b1741d9/image.png)
 #### オプション
 - amount (必須): `1` から `100` の数値でダイスを振る回 (個) 数を指定
 - surface (必須): `2` から `100` の数値でダイスの面数を指定
